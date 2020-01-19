@@ -1,0 +1,6 @@
+#conda create -n env_colourmap python=3.6
+#conda activate env_colourmap
+#conda install spyder
+
+matplotlib 
+numpy 

@@ -1,0 +1,4 @@
+#include versioneer.py
+#include colourmap/_version.py
+#include colourmap/data/*.zip
+#include colourmap/data/*.txt
