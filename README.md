@@ -21,11 +21,9 @@
 * It is distributed under the MIT license.
 
 ## Requirements
-* It is advisable to create a new environment. 
 ```python
-conda create -n env_colourmap python=3.6
-conda activate env_colourmap
-pip install numpy pandas tqdm matplotlib
+# This can be done manually but is also done automatically when pip installing colourmap.
+pip install -r requirements
 ```
 
 ## Quick Start
@@ -71,8 +69,6 @@ label_colors, colordict=colourmap.fromlist(y, cmap='Set2')
 label_colors, colordict=colourmap.fromlist(y, cmap='Set2', method='seaborn')
 
 ```
-
-
 
 ## Citation
 Please cite colourmap in your publications if this is useful for your research. Here is an example BibTeX entry:
