@@ -1,27 +1,19 @@
-'''
- Python package colourmap generates an N unique colors from the specified input colormap.
+"""Python package colourmap generates an N unique colors from the specified input colormap."""
 
- import colourmap as colourmap
- colourmap.generate(N)
- colourmap.fromlist()
+# Name        : colourmap.py
+# Author      : E.Taskesen
+# Contact     : erdogant@gmail.com
+# Date        : Jan. 2020
+# Licence     : MIT
 
-
-
- Name        : colourmap.py
- Author      : E.Taskesen
- Contact     : erdogant@gmail.com
- Date        : Jan. 2020
- Licence     : MIT
-
-'''
-
-#%% Libraries
+# %% Libraries
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-#%% Main
-def generate(N, cmap='Set1', method='matplotlib'):
-    '''
+# %% Main
+def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False):
+    """Generate N RGB colors for cmap.
 
     Parameters
     ----------
