@@ -1,7 +1,15 @@
+import re
 import setuptools
-#import versioneer
-new_version='0.1.0'
 
+# versioning ------------
+VERSIONFILE="colourmap/__init__.py"
+getversion = re.search( r"^__version__ = ['\"]([^'\"]*)['\"]", open(VERSIONFILE, "rt").read(), re.M)
+if getversion:
+    new_version = getversion.group(1)
+else:
+    raise RuntimeError("Unable to find version string in %s." % (VERSIONFILE,))
+
+# Setup ------------
 with open("README.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
@@ -9,8 +17,6 @@ setuptools.setup(
      python_requires='>=3',
      name='colourmap',
      version=new_version,
-#     version=versioneer.get_version(),    # VERSION CONTROL
-#     cmdclass=versioneer.get_cmdclass(),  # VERSION CONTROL
      author="Erdogan Taskesen",
      author_email="erdogant@gmail.com",
      description="Python package colourmap generates an N unique colors from the specified input colormap.",
