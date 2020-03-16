@@ -36,18 +36,20 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False):
         'matplotlib' (default)     
         'seaborn'
 
-
-	Reference
-    ---------
+    References
+    ----------
     Colormap: https://matplotlib.org/examples/color/colormaps_reference.html
-
 
     Returns
     -------
-    color_list : TYPE
-        Colors.
+    color_list : numpy array with colors that range between [0-1, 0-1, 0-1].
 
-    '''
+    """
+    if keep_alpha:
+        listlen=4
+    else:
+        listlen=3
+
     if method=='seaborn':
         try:
             import seaborn as sns
@@ -57,13 +59,55 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False):
         color_list=sns.color_palette(cmap,N)
     else:
         base = plt.cm.get_cmap(cmap)
-        color_list = base(np.linspace(0, 1, N))[:,0:3].tolist()
-    return color_list
+        color_list = base(np.linspace(0, 1, N))[:,0:listlen].tolist()
+    return np.array(color_list)
+
+
+# %%
+def rgb2hex(colors, keep_alpha=False):
+    """Convert RGB color-range to hex.
+
+    Parameters
+    ----------
+    colors : list
+        list of floats that range between [0-1, 0-1, 0-1].
+    keep_alpha : bool, optional
+        Keep the alpha value, which is the first number in RGB range. The default is False.
+
+    Returns
+    -------
+    list of hex colors.
+
+    """
+    if not keep_alpha:
+        colors = colors[:,0:3]
+    hexcolors = list(map(lambda x: matplotlib.colors.to_hex(x, keep_alpha=keep_alpha), colors))
+    return np.array(hexcolors)
+
+
+# %%
+def hex2rgb(colors):
+    """Convert hex color-range to RGB.
+
+    Parameters
+    ----------
+    colors : list
+        list of str.
+    keep_alpha : bool, optional
+        Keep the alpha value, which is the first number in RGB range. The default is False.
+
+    Returns
+    -------
+    list of rgb colors.
+
+    """
+    rgbcolors = list(map(lambda x: matplotlib.colors.to_rgb(x), colors))
+    return np.array(rgbcolors)
+
 
 # %%
 def fromlist(y, cmap='Set1', method='matplotlib'):
-    '''
-    
+    """Generate colors from input list.
 
     Parameters
     ----------
@@ -72,8 +116,8 @@ def fromlist(y, cmap='Set1', method='matplotlib'):
     cmap : String, optional
         Colormap. The default is 'Set1'.
     method : String, optional
-        Method to generate colors 
-        'matplotlib' (default)     
+        Method to generate colors
+        'matplotlib' (default)
         'seaborn'
 
 
@@ -82,9 +126,8 @@ def fromlist(y, cmap='Set1', method='matplotlib'):
     tuple containing:
         List of colors in the same order as y.
         dict for the unique colors
-    
 
-    '''
+    """
     # make unique
     uiy=np.unique(y)
     # Get colors
@@ -93,5 +136,7 @@ def fromlist(y, cmap='Set1', method='matplotlib'):
     colordict=dict(zip(uiy, getcolors))
     # Get colors for y
     out=list(map(colordict.get, y))
+    # Stack list of arrays into single array
+    out = np.vstack(out)
     # Return
     return(out, colordict)
