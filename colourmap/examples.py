@@ -1,10 +1,16 @@
-# -*- coding: utf-8 -*-
-"""
-Some tests for colourmap.py
-"""
+import colourmap
+print(colourmap.__version__)
 
 # %%
-import colourmap.colourmap as colourmap
+colors = colourmap.generate(10, cmap='Set1', keep_alpha=False)
+
+# %% Convert RGB to hex
+hexcolors = colourmap.rgb2hex(colors)
+
+# %% Convert hex to RGB
+colors_2 = colourmap.hex2rgb(hexcolors)
+
+# %%
 N=10
 # Create N colors
 getcolors=colourmap.generate(N)
@@ -25,4 +31,3 @@ label_colors, colordict=colourmap.fromlist(y, cmap='Set2')
 # With different method
 label_colors, colordict=colourmap.fromlist(y, cmap='Set2', method='seaborn')
 
-# %%
