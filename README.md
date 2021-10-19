@@ -3,8 +3,13 @@
 [![Python](https://img.shields.io/pypi/pyversions/colourmap)](https://img.shields.io/pypi/pyversions/colourmap)
 [![PyPI Version](https://img.shields.io/pypi/v/colourmap)](https://pypi.org/project/colourmap/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/erdogant/colourmap/blob/master/LICENSE)
-[![Downloads](https://pepy.tech/badge/colourmap/week)](https://pepy.tech/project/colourmap/week)
-[![Donate](https://img.shields.io/badge/donate-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)
+[![Github Forks](https://img.shields.io/github/forks/erdogant/colourmap.svg)](https://github.com/erdogant/colourmap/network)
+[![GitHub Open Issues](https://img.shields.io/github/issues/erdogant/colourmap.svg)](https://github.com/erdogant/colourmap/issues)
+[![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Downloads](https://pepy.tech/badge/colourmap/month)](https://pepy.tech/project/colourmap/month)
+[![Downloads](https://pepy.tech/badge/colourmap)](https://pepy.tech/project/colourmap)
+[![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)
+<!---[![Coffee](https://img.shields.io/badge/coffee-black-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)-->
 
 * Python package colourmap generates an N unique colors from the specified input colormap.
 
