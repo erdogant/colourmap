@@ -14,36 +14,47 @@
 * Python package colourmap generates an N unique colors from the specified input colormap.
 
 # 
-**Star this repo if you like it! ⭐️**
-#
+**⭐️ Star this repo if you like it ⭐️**
+# 
 
 
-## Installation
-* Install colourmap from PyPI (recommended). colourmap is compatible with Python 3.6+ and runs on Linux, MacOS X and Windows. 
-* It is distributed under the MIT license.
+### [Documentation pages](https://erdogant.github.io/colourmap/)
 
-## Requirements
-```python
-# This can be done manually but is also done automatically when pip installing colourmap.
-pip install -r requirements
-```
+On the [documentation pages](https://erdogant.github.io/colourmap/) you can find more information about ``colourmap`` with examples. 
 
-## Quick Start
-```
-pip install colourmap
-```
+# 
 
-* Alternatively, install colourmap from the GitHub source:
+##### Install colourmap from PyPI
 ```bash
-git clone https://github.com/erdogant/colourmap.git
-cd colourmap
-python setup.py install
-```  
+pip install colourmap     # normal install
+pip install -U colourmap  # update if needed
+```
+
 
 ### Import colourmap package
 ```python
-import colourmap as colourmap
+from colourmap import colourmap
 ```
+
+#
+
+#### [Example: Check whether the elements of X are present in Y](https://erdogant.github.io/ismember/pages/html/Examples.html#)
+
+#
+
+#### [Example: Determine the corresponding location of the values that are present in Y array](https://erdogant.github.io/ismember/pages/html/Examples.html#determine-the-corresponding-location-of-the-values-that-are-present-in-y-array)
+
+#
+
+#### [Example: Row wise comparison](https://erdogant.github.io/ismember/pages/html/Examples.html#row-wise-comparison-1)
+
+#
+
+#### [Example: Elementwise comparison](https://erdogant.github.io/ismember/pages/html/Examples.html#elementwise-comparison)
+
+
+#### Quick examples
+
 
 ### Example:
 ```python
