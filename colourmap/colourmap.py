@@ -11,6 +11,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 # %% Main
 def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False):
     """Generate N RGB colors for cmap.
@@ -20,20 +21,20 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False):
     N : Integer
         Number of colors to be generated.
     cmap : String, optional
-        'Set1'       (default)     
-        'Set2'       
+        'Set1'       (default)
+        'Set2'
         'rainbow'
         'bwr'        Blue-white-red
         'binary' or 'binary_r'
-        'seismic'    Blue-white-red 
+        'seismic'    Blue-white-red
         'Blues'      white-to-blue
         'Reds'       white-to-red
         'Pastel1'    Discrete colors
         'Paired'     Discrete colors
         'Set1'       Discrete colors
     method : String, optional
-        Method to generate colors 
-        'matplotlib' (default)     
+        Method to generate colors
+        'matplotlib' (default)
         'seaborn'
 
     References
@@ -56,10 +57,10 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False):
         except:
             print('[COLOURMAP] Error: seaborn is missing! Try to: pip install seaborn')
         # color_list=sns.color_palette(cmap,N).as_hex()
-        color_list=sns.color_palette(cmap,N)
+        color_list=sns.color_palette(cmap, N)
     else:
         base = plt.cm.get_cmap(cmap)
-        color_list = base(np.linspace(0, 1, N))[:,0:listlen].tolist()
+        color_list = base(np.linspace(0, 1, N))[:, 0:listlen].tolist()
     return np.array(color_list)
 
 
@@ -80,7 +81,7 @@ def rgb2hex(colors, keep_alpha=False):
 
     """
     if not keep_alpha:
-        colors = colors[:,0:3]
+        colors = colors[:, 0:3]
     hexcolors = list(map(lambda x: matplotlib.colors.to_hex(x, keep_alpha=keep_alpha), colors))
     return np.array(hexcolors)
 
