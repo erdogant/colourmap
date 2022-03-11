@@ -52,7 +52,10 @@ from colourmap import colourmap
 c = colourmap.generate(10)
 
 # From list
-c, c_dict = colourmap.fromlist([1,1,2,2,3,1,2,3])
+c_rgb, c_dict = colourmap.fromlist([1,1,2,2,3,1,2,3])
+
+# to HEX
+c_hex = colourmap.rgb2hex(c_rgb)
 
 ```
 
