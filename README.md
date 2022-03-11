@@ -38,12 +38,16 @@ from colourmap import colourmap
 ```
 
 <hr>
+
 #### Quick example
 
 Use the documentation pages for more detailed usage. Some of the most used functionalities are linked below.
 
 
 ```python
+
+from colourmap import colourmap
+
 # Create N colors
 c = colourmap.generate(10)
 
