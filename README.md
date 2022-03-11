@@ -8,6 +8,7 @@
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Downloads](https://pepy.tech/badge/colourmap/month)](https://pepy.tech/project/colourmap/month)
 [![Downloads](https://pepy.tech/badge/colourmap)](https://pepy.tech/project/colourmap)
+[![Sphinx](https://img.shields.io/badge/Sphinx-Docs-Green)](https://erdogant.github.io/colourmap/)
 <!---[![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)-->
 <!---[![Coffee](https://img.shields.io/badge/coffee-black-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)-->
 
@@ -38,70 +39,38 @@ from colourmap import colourmap
 
 #
 
-#### [Example: Check whether the elements of X are present in Y](https://erdogant.github.io/ismember/pages/html/Examples.html#)
+#### [Example: Generate N unique colors from a specific colormap](https://erdogant.github.io/colourmap/pages/html/Examples.html#)
 
 #
 
-#### [Example: Determine the corresponding location of the values that are present in Y array](https://erdogant.github.io/ismember/pages/html/Examples.html#determine-the-corresponding-location-of-the-values-that-are-present-in-y-array)
+#### [Example: Generate unique colors based on input labels](https://erdogant.github.io/colourmap/pages/html/Examples.html#create-color-based-on-input-labels)
 
 #
 
-#### [Example: Row wise comparison](https://erdogant.github.io/ismember/pages/html/Examples.html#row-wise-comparison-1)
+#### [Example: Create unique colors based on seaborn or matplotlib](https://erdogant.github.io/colourmap/pages/html/Examples.html#color-generated-by-seaborn-and-matplotlib)
 
 #
 
-#### [Example: Elementwise comparison](https://erdogant.github.io/ismember/pages/html/Examples.html#elementwise-comparison)
+#### [Example: Conversion RGB to HEX](https://erdogant.github.io/colourmap/pages/html/Examples.html#convert-rgb-to-hex)
 
+#
 
-#### Quick examples
+#### [Example: Conversion HEX to RGB](https://erdogant.github.io/colourmap/pages/html/Examples.html#convert-rgb-to-hex)
 
+# 
 
-### Example:
 ```python
-N=10
 # Create N colors
-getcolors=colourmap.generate(N)
+c = colourmap.generate(10)
 
-# With different cmap
-getcolors=colourmap.generate(N, cmap='Set2')
-
-# Create color for label
-y=[1,1,2,2,3,1,2,3]
-label_colors, colordict=colourmap.fromlist(y)
-# With different cmap
-label_colors, colordict=colourmap.fromlist(y, cmap='Set2')
-# With different method
-label_colors, colordict=colourmap.fromlist(y, cmap='Set2', method='seaborn')
-
-# String as input labels
-y=['1','1','2','2','3','1','2','3']
-label_colors, colordict=colourmap.fromlist(y)
-# With different cmap
-label_colors, colordict=colourmap.fromlist(y, cmap='Set2')
-# With different method
-label_colors, colordict=colourmap.fromlist(y, cmap='Set2', method='seaborn')
+# From list
+c, c_dict = colourmap.fromlist([1,1,2,2,3,1,2,3])
 
 ```
 
-### Citation
-Please cite colourmap in your publications if this is useful for your research. Here is an example BibTeX entry:
-```BibTeX
-@misc{erdogant2019colourmap,
-  title={colourmap},
-  author={Erdogan Taskesen},
-  year={2019},
-  howpublished={\url{https://github.com/erdogant/colourmap}},
-}
-```
 
-### Maintainers
+### Maintainer
 * Erdogan Taskesen, github: [erdogant](https://github.com/erdogant)
-
-### Contribute
 * Contributions are welcome.
-
-### Licence
-See [LICENSE](LICENSE) for details.
-
-### Donation
-* This work is created and maintained in my free time. If you wish to buy me a <a href="https://erdogant.github.io/donate/?currency=USD&amount=5">Coffee</a> for this work, it is very appreciated.
+* For citations, please use the citation at the right side panel.
+* If you wish to buy me a <a href="https://www.buymeacoffee.com/erdogant">Coffee</a> for this work, it is very appreciated :)
