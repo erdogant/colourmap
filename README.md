@@ -59,6 +59,8 @@ from colourmap import colourmap
 
 # 
 
+#### Quick Examples
+
 ```python
 # Create N colors
 c = colourmap.generate(10)
