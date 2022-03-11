@@ -37,6 +37,21 @@ pip install -U colourmap  # update if needed
 from colourmap import colourmap
 ```
 
+<hr>
+#### Quick example
+
+Use the documentation pages for more detailed usage. Some of the most used functionalities are linked below.
+
+
+```python
+# Create N colors
+c = colourmap.generate(10)
+
+# From list
+c, c_dict = colourmap.fromlist([1,1,2,2,3,1,2,3])
+
+```
+
 #
 
 #### [Example: Generate N unique colors from a specific colormap](https://erdogant.github.io/colourmap/pages/html/Examples.html#)
@@ -57,19 +72,7 @@ from colourmap import colourmap
 
 #### [Example: Conversion HEX to RGB](https://erdogant.github.io/colourmap/pages/html/Examples.html#convert-rgb-to-hex)
 
-# 
-
-#### Quick Examples
-
-```python
-# Create N colors
-c = colourmap.generate(10)
-
-# From list
-c, c_dict = colourmap.fromlist([1,1,2,2,3,1,2,3])
-
-```
-
+<hr>
 
 ### Maintainer
 * Erdogan Taskesen, github: [erdogant](https://github.com/erdogant)
