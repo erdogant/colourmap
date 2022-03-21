@@ -80,10 +80,39 @@ def rgb2hex(colors, keep_alpha=False):
     list of hex colors.
 
     """
+    if isinstance(colors, list):
+        colors = np.array(colors)
+    if len(colors.shape)==1:
+        colors = np.array([colors])
+
     if not keep_alpha:
         colors = colors[:, 0:3]
     hexcolors = list(map(lambda x: matplotlib.colors.to_hex(x, keep_alpha=keep_alpha), colors))
     return np.array(hexcolors)
+
+
+# %%
+def _rgb2hex(c_rgb):
+    """RGB to Hex.
+
+    Parameters
+    ----------
+    c_rgb : tuple (255, 255, 255)
+        rgb colors in range 0-255.
+
+    Returns
+    -------
+    str.
+        Hex color.
+
+    Examples
+    --------
+    hexcolor = _rgb2hex([255,255,255])
+    """
+    # Components need to be integers for hex to make sense
+    c_rgb = [int(x) for x in c_rgb]
+    return "#"+"".join(["0{0:x}".format(v) if v < 16 else
+              "{0:x}".format(v) for v in c_rgb])
 
 
 # %%
@@ -102,13 +131,45 @@ def hex2rgb(colors):
     list of rgb colors.
 
     """
+    if 'str' in str(type(colors)):
+        colors = np.array([colors])
+
     rgbcolors = list(map(lambda x: matplotlib.colors.to_rgb(x), colors))
     return np.array(rgbcolors)
 
 
+def _hex2rgb(c_hex):
+    """Convert hex to rgb.
+
+    Parameters
+    ----------
+    c_hex : str
+        Hex color.
+
+    Returns
+    -------
+    list
+        RGB color.
+
+    Examples
+    --------
+    rgbcolor = _hex2rgb("#FFFFFF")
+
+    """
+    # Pass 16 to the integer function for change of base
+    return [int(c_hex[i:i + 2], 16) for i in range(1, 6, 2)]
+
+
 # %%
-def fromlist(y, cmap='Set1', method='matplotlib'):
+def fromlist(y, cmap='Set1', gradient=None, method='matplotlib'):
     """Generate colors from input list.
+
+    Description
+    ------------
+    This function creates unique colors based on the input list y and the cmap.
+    When the gradient hex color is defined, such as '#000000', a gradient coloring space is created between two colors.
+        The start color of the particular y, using the cmap and
+        The end color is the defined gradient, such as '#000000'.
 
     Parameters
     ----------
@@ -116,11 +177,13 @@ def fromlist(y, cmap='Set1', method='matplotlib'):
         For each unique value, a unique color is given back.
     cmap : String, optional
         Colormap. The default is 'Set1'.
+    gradient : String, (default: None)
+        Hex end color for the gradient.
+        '#FFFFFF'
     method : String, optional
         Method to generate colors
         'matplotlib' (default)
         'seaborn'
-
 
     Returns
     -------
@@ -130,14 +193,86 @@ def fromlist(y, cmap='Set1', method='matplotlib'):
 
     """
     # make unique
+    y = np.array(y)
     uiy=np.unique(y)
     # Get colors
     getcolors=generate(len(uiy), cmap=cmap, method=method)
     # Make dict for each search
     colordict=dict(zip(uiy, getcolors))
-    # Get colors for y
-    out=list(map(colordict.get, y))
-    # Stack list of arrays into single array
-    out = np.vstack(out)
+
+    # Color using gradient.
+    if gradient is not None:
+        rgb_colors = np.array([[0.0, 0.0, 0.0]] * len(y))
+        hex_colors = np.array(['#000000'] * len(y))
+        for i, _ in enumerate(uiy):
+            Iloc = uiy[i]==y
+            c_gradient = linear_gradient(_rgb2hex(colordict.get(uiy[i]) * 255), finish_hex=gradient, n=sum(Iloc))
+            rgb_gradient = np.c_[c_gradient['r'], c_gradient['g'], c_gradient['b']]
+            hex_gradient = np.array(c_gradient['hex'])
+            rgb_colors[Iloc] = rgb_gradient/255
+            hex_colors[Iloc] = hex_gradient
+    else:
+        # Get colors for y
+        rgb_colors=list(map(colordict.get, y))
+        # Stack list of arrays into single array
+        rgb_colors = np.vstack(rgb_colors)
     # Return
-    return(out, colordict)
+    # hex_colors
+    return(rgb_colors, colordict)
+
+
+# %%
+def linear_gradient(start_hex, finish_hex="#FFFFFF", n=10):
+    """Return a gradient list of (n) colors between two hex colors.
+
+    Description
+    -----------
+    start_hex and finish_hex should be the full six-digit color string, inlcuding the number sign ("#FFFFFF")
+
+    Parameters
+    ----------
+    start_hex : str
+        Hex starting color.
+    finish_hex : str, optional
+        Hex end color. The default is "#FFFFFF".
+    n : int, (default: 10)
+        Spacing between start-stop colors.
+
+    Returns
+    -------
+    dict
+        lineair spacing.
+
+    """
+    # Starting and ending colors in RGB form
+    s = _hex2rgb(start_hex)
+    f = _hex2rgb(finish_hex)
+    # Initilize a list of the output colors with the starting color
+    RGB_list = [s]
+    # Calcuate a color at each evenly spaced value of t from 1 to n
+    for t in range(1, n):
+      # Interpolate RGB vector for color at the current value of t
+      curr_vector = [
+        int(s[j] + (float(t)/(n-1))*(f[j]-s[j]))
+        for j in range(3)
+      ]
+      # Add it to our list of output colors
+      RGB_list.append(curr_vector)
+
+    return _color_dict(RGB_list)
+
+
+def _color_dict(gradient):
+    """Color to dictionary.
+
+    Description
+    -----------
+    Takes in a list of RGB sub-lists and returns dictionary of colors in RGB and
+    hex form for use in a graphing function defined later on.
+
+    """
+    return {"hex":[_rgb2hex(RGB) for RGB in gradient],
+        "r":[RGB[0] for RGB in gradient],
+        "g":[RGB[1] for RGB in gradient],
+        "b":[RGB[2] for RGB in gradient]}
+# %%
