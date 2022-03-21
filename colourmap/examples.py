@@ -16,9 +16,18 @@ N=10
 getcolors=colourmap.generate(N)
 # With different cmap
 getcolors=colourmap.generate(N, cmap='Set2')
+
 # Create color for label
 y=[1,1,2,2,3,1,2,3]
 label_colors, colordict=colourmap.fromlist(y)
+
+# Create color for label with gradient per group
+y=[1,1,2,2,3,1,2,3]
+label_colors, colordict = colourmap.fromlist(y)
+
+# With gradient
+label_colors, colordict = colourmap.fromlist(y, gradient='#000000')
+
 # With different cmap
 label_colors, colordict=colourmap.fromlist(y, cmap='Set2')
 # With different method
