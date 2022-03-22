@@ -191,6 +191,10 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib'):
         List of colors in the same order as y.
         dict for the unique colors
 
+    References
+    ----------
+        * https://github.com/bsouthga/blog/blob/master/public/posts/color-gradients-with-python.md
+
     """
     # make unique
     y = np.array(y)
@@ -209,7 +213,7 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib'):
             c_gradient = linear_gradient(_rgb2hex(colordict.get(uiy[i]) * 255), finish_hex=gradient, n=sum(Iloc))
             rgb_gradient = np.c_[c_gradient['r'], c_gradient['g'], c_gradient['b']]
             hex_gradient = np.array(c_gradient['hex'])
-            rgb_colors[Iloc] = rgb_gradient/255
+            rgb_colors[Iloc] = rgb_gradient / 255
             hex_colors[Iloc] = hex_gradient
     else:
         # Get colors for y
