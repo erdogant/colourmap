@@ -1,13 +1,14 @@
 from colourmap.colourmap import (
     generate,
 	fromlist,
+    linear_gradient,
     rgb2hex,
     hex2rgb,
 )
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
-__version__ = '1.1.0'
+__version__ = '1.1.1'
 
 
 # module level doc-string
