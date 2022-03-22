@@ -2,6 +2,9 @@ import colourmap
 print(colourmap.__version__)
 
 # %%
+colors = colourmap.linear_gradient("#000000", finish_hex="#FFFFFF", n=10)
+
+# %%
 colors = colourmap.generate(10, cmap='Set1', keep_alpha=False)
 
 # %% Convert RGB to hex
