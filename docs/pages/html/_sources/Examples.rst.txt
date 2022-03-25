@@ -157,6 +157,66 @@ Converting HEX to RGB can be performed with the function: :func:`colourmap.colou
 	#  [0.6        0.6        0.6       ]]
 
 
+Linear gradient between two colors
+######################################
+
+A linear gradient can be created between two input colors with the function: :func:`colourmap.colourmap.linear_gradient`.
+
+.. code:: python
+
+	# Import library
+	import colourmap as colourmap
+
+	# Create the gradient
+	colors = colourmap.linear_gradient("#000000", finish_hex="#FFFFFF", n=10)
+
+	# {'hex': ['#000000',
+	#   '#1c1c1c',
+	#   '#383838',
+	#   '#555555',
+	#   '#717171',
+	#   '#8d8d8d',
+	#   '#aaaaaa',
+	#   '#c6c6c6',
+	#   '#e2e2e2',
+	#   '#ffffff'],
+	#  'r': [0, 28, 56, 85, 113, 141, 170, 198, 226, 255],
+	#  'g': [0, 28, 56, 85, 113, 141, 170, 198, 226, 255],
+	#  'b': [0, 28, 56, 85, 113, 141, 170, 198, 226, 255]}
+
+
+Linear gradient based on input labels
+######################################
+
+A linear gradient can be created based on the input labels with the function: :func:`colourmap.colourmap.fromlist`.
+
+	1. The input labels are used to create unique colors based on ``cmap``. 
+	2. A gradient is computed starting with each unique color towards the defined color in ``gradient``.
+	3. The most dense regions is the start of the gradient and will linear transform towards the edges.
+
+.. code:: python
+
+	# Import library
+	import colourmap as colourmap
+	
+	# Example dataset
+	import matplotlib.pyplot as plt
+	from sklearn import datasets
+	iris = datasets.load_iris()
+	X = iris.data[:, :2]
+	labels = iris.target
+
+	# Gradient per class label
+	label_colors, colordict = colourmap.fromlist(labels, cmap='Set1', gradient='#FFFFFF')
+	
+	# Scatter with gradient per class label
+	plt.figure(figsize=(15,10))
+	plt.scatter(X[:,0],X[:,1], c=label_colors)
+
+
+.. image:: ../figs/scatter_gradient.png
+   :width: 600
+   :align: center
 
 .. raw:: html
 
