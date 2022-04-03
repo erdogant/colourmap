@@ -55,7 +55,7 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False):
         try:
             import seaborn as sns
         except:
-            print('[COLOURMAP] Error: seaborn is missing! Try to: pip install seaborn')
+            raise Exception('[COLOURMAP] Error: seaborn is missing! Try to: pip install seaborn')
         # color_list=sns.color_palette(cmap,N).as_hex()
         color_list=sns.color_palette(cmap, N)
     else:
