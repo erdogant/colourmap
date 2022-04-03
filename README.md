@@ -79,6 +79,10 @@ c_hex = colourmap.rgb2hex(c_rgb)
 
 #### [Example: Conversion HEX to RGB](https://erdogant.github.io/colourmap/pages/html/Examples.html#convert-rgb-to-hex)
 
+#
+
+#### [Example: Create a linear gradient between colors](https://erdogant.github.io/colourmap/pages/html/Examples.html#linear-gradient-between-two-colors)
+
 <hr>
 
 ### Maintainer
