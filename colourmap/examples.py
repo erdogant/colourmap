@@ -26,7 +26,7 @@ label_colors, colordict=colourmap.fromlist(y)
 
 # Create color for label with gradient per group
 y=[1,1,2,2,3,1,2,3]
-label_colors, colordict = colourmap.fromlist(y)
+label_colors, colordict = colourmap.fromlist(y, scheme='hex')
 
 # With gradient
 label_colors, colordict = colourmap.fromlist(y, gradient='#000000')

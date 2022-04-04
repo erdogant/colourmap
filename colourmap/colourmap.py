@@ -161,7 +161,7 @@ def _hex2rgb(c_hex):
 
 
 # %%
-def fromlist(y, cmap='Set1', gradient=None, method='matplotlib'):
+def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb'):
     """Generate colors from input list.
 
     Description
@@ -177,6 +177,10 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib'):
         For each unique value, a unique color is given back.
     cmap : String, optional
         Colormap. The default is 'Set1'.
+    scheme : String, optional
+        The output of color is in the scheme:
+        'rgb'
+        'hex'
     gradient : String, (default: None)
         Hex end color for the gradient.
         '#FFFFFF'
@@ -220,9 +224,14 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib'):
         rgb_colors=list(map(colordict.get, y))
         # Stack list of arrays into single array
         rgb_colors = np.vstack(rgb_colors)
+
+    # Set the output coloring scheme
+    if scheme=='hex':
+        colors = rgb2hex(rgb_colors)
+    else:
+        colors = rgb_colors
     # Return
-    # hex_colors
-    return(rgb_colors, colordict)
+    return(colors, colordict)
 
 
 # %%
