@@ -13,7 +13,7 @@ import numpy as np
 
 
 # %% Main
-def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False):
+def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'):
     """Generate N RGB colors for cmap.
 
     Parameters
@@ -36,6 +36,10 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False):
         Method to generate colors
         'matplotlib' (default)
         'seaborn'
+    scheme : String, optional
+        The output of color is in the scheme:
+        'rgb'
+        'hex'
 
     References
     ----------
@@ -61,7 +65,14 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False):
     else:
         base = plt.cm.get_cmap(cmap)
         color_list = base(np.linspace(0, 1, N))[:, 0:listlen].tolist()
-    return np.array(color_list)
+
+    # Set the output coloring scheme
+    if scheme=='hex':
+        colors = rgb2hex(color_list)
+    else:
+        colors = color_list
+
+    return np.array(colors)
 
 
 # %%
@@ -177,10 +188,6 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb'):
         For each unique value, a unique color is given back.
     cmap : String, optional
         Colormap. The default is 'Set1'.
-    scheme : String, optional
-        The output of color is in the scheme:
-        'rgb'
-        'hex'
     gradient : String, (default: None)
         Hex end color for the gradient.
         '#FFFFFF'
@@ -188,6 +195,10 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb'):
         Method to generate colors
         'matplotlib' (default)
         'seaborn'
+    scheme : String, optional
+        The output of color is in the scheme:
+        'rgb'
+        'hex'
 
     Returns
     -------
