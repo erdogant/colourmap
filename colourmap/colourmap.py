@@ -13,7 +13,7 @@ import numpy as np
 
 
 # %% Main
-def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'):
+def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb', verbose=3):
     """Generate N RGB colors for cmap.
 
     Parameters
@@ -56,15 +56,15 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'
         listlen=3
 
     if method=='seaborn':
-        try:
-            import seaborn as sns
-        except:
-            raise Exception('[COLOURMAP] Error: seaborn is missing! Try to: pip install seaborn')
-        # color_list=sns.color_palette(cmap,N).as_hex()
-        color_list=sns.color_palette(cmap, N)
+        sns = _check_seaborn()
+        color_list = sns.color_palette(cmap, N)
     else:
         base = plt.cm.get_cmap(cmap)
         color_list = base(np.linspace(0, 1, N))[:, 0:listlen].tolist()
+        # If there are not enough colors in the cmap, use the seaborn method.
+        uicolors = len(np.unique(rgb2hex(color_list)))
+        if uicolors != N:
+            if verbose>=2: print('[colourmap]> Warning: Colormap [%s] can not create [%d] unique colors! Available unique colors: [%d].' %(cmap, N, uicolors))
 
     # Set the output coloring scheme
     if scheme=='hex':
@@ -73,6 +73,15 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'
         colors = color_list
 
     return np.array(colors)
+
+
+# %%
+def _check_seaborn():
+    try:
+        import seaborn as sns
+        return sns
+    except:
+        raise Exception('[colourmap]> Error: seaborn is missing! Try to: pip install seaborn')
 
 
 # %%
@@ -213,34 +222,44 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb'):
     """
     # make unique
     y = np.array(y)
-    uiy=np.unique(y)
-    # Get colors
-    getcolors=generate(len(uiy), cmap=cmap, method=method)
-    # Make dict for each search
-    colordict=dict(zip(uiy, getcolors))
+    uiy = np.unique(y)
 
-    # Color using gradient.
+    # Get colors
+    colors_unique = generate(len(uiy), cmap=cmap, method=method, scheme=scheme)
+
+    # Make dict for each search
+    colordict = dict(zip(uiy, colors_unique))
+
+    # Color using density and the gradient.
     if gradient is not None:
-        rgb_colors = np.array([[0.0, 0.0, 0.0]] * len(y))
-        hex_colors = np.array(['#000000'] * len(y))
+        # Set the scheme
+        if scheme=='rgb':
+            colors = np.array([[0.0, 0.0, 0.0]] * len(y))
+        else:
+            colors = np.array(['#000000'] * len(y))
+
+        # Make the colors based on the density
         for i, _ in enumerate(uiy):
             Iloc = uiy[i]==y
-            c_gradient = linear_gradient(_rgb2hex(colordict.get(uiy[i]) * 255), finish_hex=gradient, n=sum(Iloc))
-            rgb_gradient = np.c_[c_gradient['r'], c_gradient['g'], c_gradient['b']]
-            hex_gradient = np.array(c_gradient['hex'])
-            rgb_colors[Iloc] = rgb_gradient / 255
-            hex_colors[Iloc] = hex_gradient
+
+            if scheme=='rgb':
+                # Set the rgb colors
+                c_gradient = linear_gradient(_rgb2hex(colordict.get(uiy[i]) * 255), finish_hex=gradient, n=sum(Iloc))
+                colors[Iloc] = c_gradient['rgb'] / 255
+            else:
+                # Set the hex colors
+                c_gradient = linear_gradient(colordict.get(uiy[i]), finish_hex=gradient, n=sum(Iloc))
+                colors[Iloc] = np.array(c_gradient['hex'])
     else:
         # Get colors for y
-        rgb_colors=list(map(colordict.get, y))
-        # Stack list of arrays into single array
-        rgb_colors = np.vstack(rgb_colors)
+        colors = list(map(colordict.get, y))
 
-    # Set the output coloring scheme
-    if scheme=='hex':
-        colors = rgb2hex(rgb_colors)
-    else:
-        colors = rgb_colors
+        # Stack list of arrays into single array
+        if scheme=='rgb':
+            colors = np.vstack(colors)
+        else:
+            colors = np.array(colors)
+
     # Return
     return(colors, colordict)
 
@@ -275,15 +294,18 @@ def linear_gradient(start_hex, finish_hex="#FFFFFF", n=10):
     RGB_list = [s]
     # Calcuate a color at each evenly spaced value of t from 1 to n
     for t in range(1, n):
-      # Interpolate RGB vector for color at the current value of t
-      curr_vector = [
-        int(s[j] + (float(t)/(n-1))*(f[j]-s[j]))
-        for j in range(3)
-      ]
-      # Add it to our list of output colors
-      RGB_list.append(curr_vector)
+        # Interpolate RGB vector for color at the current value of t
+        curr_vector = [
+            int(s[j] + (float(t) / (n - 1)) * (f[j] - s[j]))
+            for j in range(3)
+            ]
+        # Add it to our list of output colors
+        RGB_list.append(curr_vector)
 
-    return _color_dict(RGB_list)
+    # convert to dict
+    coldict = _color_dict(RGB_list)
+    # return
+    return coldict
 
 
 def _color_dict(gradient):
@@ -295,8 +317,6 @@ def _color_dict(gradient):
     hex form for use in a graphing function defined later on.
 
     """
-    return {"hex":[_rgb2hex(RGB) for RGB in gradient],
-        "r":[RGB[0] for RGB in gradient],
-        "g":[RGB[1] for RGB in gradient],
-        "b":[RGB[2] for RGB in gradient]}
-# %%
+    hex_colors = [_rgb2hex(RGB) for RGB in gradient]
+    rgb_colors = np.c_[[RGB[0] for RGB in gradient], [RGB[1] for RGB in gradient], [RGB[2] for RGB in gradient]]
+    return {'hex': hex_colors, 'rgb': rgb_colors}
