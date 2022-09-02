@@ -4,6 +4,7 @@ from colourmap.colourmap import (
     linear_gradient,
     rgb2hex,
     hex2rgb,
+    hex2rgba,
 )
 
 __author__ = 'Erdogan Tasksen'

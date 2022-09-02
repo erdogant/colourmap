@@ -136,6 +136,27 @@ def _rgb2hex(c_rgb):
 
 
 # %%
+def hex2rgba(colors):
+    """Convert hex color-range to RGBA.
+
+    Parameters
+    ----------
+    colors : list
+        list of str.
+
+    Returns
+    -------
+    list of rgb colors.
+
+    """
+    if 'str' in str(type(colors)):
+        colors = np.array([colors])
+
+    rgbcolors = list(map(lambda x: matplotlib.colors.to_rgba(x), colors))
+    return np.array(rgbcolors)
+
+
+# %%
 def hex2rgb(colors):
     """Convert hex color-range to RGB.
 
@@ -143,8 +164,6 @@ def hex2rgb(colors):
     ----------
     colors : list
         list of str.
-    keep_alpha : bool, optional
-        Keep the alpha value, which is the first number in RGB range. The default is False.
 
     Returns
     -------
@@ -222,11 +241,11 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb'):
     """
     # make unique
     y = np.array(y)
-    # uiy = np.unique(y)
+    uiy = np.unique(y)
 
     # Get unique categories without sort
-    indexes = np.unique(y, return_index=True)[1]
-    uiy = [y[index] for index in sorted(indexes)]
+    # indexes = np.unique(y, return_index=True)[1]
+    # uiy = [y[index] for index in sorted(indexes)]
 
     # Get colors
     colors_unique = generate(len(uiy), cmap=cmap, method=method, scheme=scheme)
