@@ -222,7 +222,11 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb'):
     """
     # make unique
     y = np.array(y)
-    uiy = np.unique(y)
+    # uiy = np.unique(y)
+
+    # Get unique categories without sort
+    indexes = np.unique(y, return_index=True)[1]
+    uiy = [y[index] for index in sorted(indexes)]
 
     # Get colors
     colors_unique = generate(len(uiy), cmap=cmap, method=method, scheme=scheme)
