@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -30,7 +31,7 @@
             <a href="index.html" class="icon icon-home"> colourmap
           </a>
               <div class="version">
-                1.1.1
+                1.1.7
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -65,6 +66,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Documentation.html">Sponsor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Documentation.html#github">Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#citing">Citing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Coding%20quality.html">Coding quality</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API References</a></li>
 </ul>
@@ -96,11 +98,11 @@
            <div itemprop="articleBody">
              
   <section id="module-colourmap.colourmap">
-<span id="api-references"></span><h1>API References<a class="headerlink" href="#module-colourmap.colourmap" title="Permalink to this headline"></a></h1>
+<span id="api-references"></span><h1>API References<a class="headerlink" href="#module-colourmap.colourmap" title="Permalink to this heading"></a></h1>
 <p>Python package colourmap generates an N unique colors from the specified input colormap.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="colourmap.colourmap.fromlist">
-<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">fromlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'matplotlib'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.fromlist" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">fromlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'matplotlib'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rgb'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.fromlist" title="Permalink to this definition"></a></dt>
 <dd><p>Generate colors from input list.</p>
 <p>This function creates unique colors based on the input list y and the cmap.
 When the gradient hex color is defined, such as ‘#000000’, a gradient coloring space is created between two colors.</p>
@@ -118,6 +120,9 @@ The end color is the defined gradient, such as ‘#000000’.</p>
 <li><p><strong>method</strong> (<em>String</em><em>, </em><em>optional</em>) – Method to generate colors
 ‘matplotlib’ (default)
 ‘seaborn’</p></li>
+<li><p><strong>scheme</strong> (<em>String</em><em>, </em><em>optional</em>) – The output of color is in the scheme:
+‘rgb’
+‘hex’</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -136,7 +141,7 @@ dict for the unique colors</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="colourmap.colourmap.generate">
-<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'matplotlib'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.generate" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'matplotlib'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rgb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.generate" title="Permalink to this definition"></a></dt>
 <dd><p>Generate N RGB colors for cmap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -156,6 +161,9 @@ dict for the unique colors</p>
 <li><p><strong>method</strong> (<em>String</em><em>, </em><em>optional</em>) – Method to generate colors
 ‘matplotlib’ (default)
 ‘seaborn’</p></li>
+<li><p><strong>scheme</strong> (<em>String</em><em>, </em><em>optional</em>) – The output of color is in the scheme:
+‘rgb’
+‘hex’</p></li>
 </ul>
 </dd>
 </dl>
@@ -177,10 +185,21 @@ dict for the unique colors</p>
 <dd><p>Convert hex color-range to RGB.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>colors</strong> (<em>list</em>) – list of str.</p></li>
-<li><p><strong>keep_alpha</strong> (<em>bool</em><em>, </em><em>optional</em>) – Keep the alpha value, which is the first number in RGB range. The default is False.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>colors</strong> (<em>list</em>) – list of str.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of rgb colors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="colourmap.colourmap.hex2rgba">
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">hex2rgba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">colors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.hex2rgba" title="Permalink to this definition"></a></dt>
+<dd><p>Convert hex color-range to RGBA.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>colors</strong> (<em>list</em>) – list of str.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>list of rgb colors.</p>
