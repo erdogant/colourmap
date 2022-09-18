@@ -7,7 +7,7 @@ colourmap's documentation!
 
 You contribution is important
 ==============================
-If you ❤️ this project, **star** this repo at the `github page <https://github.com/erdogant/colourmap/>`_ and have a look at the `sponser page <https://github.com/erdogant/colourmap/pages/html/Documentation.html>`_!
+If you ❤️ this project, **star** this repo at the `github page <https://github.com/erdogant/colourmap/>`_ and have a look at the `sponser page <https://erdogant.github.io/colourmap/pages/html/Documentation.html>`_!
 
 
 Github
@@ -46,8 +46,6 @@ Content
   Documentation
   Coding quality
   colourmap.colourmap
-
-* :ref:`genindex`
 
 
 
