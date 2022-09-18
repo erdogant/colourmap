@@ -4,9 +4,10 @@ colourmap's documentation!
 ``colourmap`` is a Python library to generate colors in different formats (HEX, RGB) and colormaps.
 
 
-Star is important
-======================
-If you ❤️ this project, **star** this repo at the `github page <https://github.com/erdogant/colourmap/>`_!
+
+You contribution is important
+==============================
+If you ❤️ this project, **star** this repo at the `github page <https://github.com/erdogant/colourmap/>`_ and have a look at the `sponser page <https://github.com/erdogant/colourmap/pages/html/Documentation.html>`_!
 
 
 Github
