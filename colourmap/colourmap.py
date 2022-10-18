@@ -59,7 +59,8 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'
         sns = _check_seaborn()
         color_list = sns.color_palette(cmap, N)
     else:
-        base = plt.cm.get_cmap(cmap)
+        # base = plt.cm.get_cmap(cmap)
+        base = matplotlib.colormaps[cmap]
         color_list = base(np.linspace(0, 1, N))[:, 0:listlen].tolist()
         # If there are not enough colors in the cmap, use the seaborn method.
         uicolors = len(np.unique(rgb2hex(color_list)))
