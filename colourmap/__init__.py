@@ -9,7 +9,7 @@ from colourmap.colourmap import (
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
-__version__ = '1.1.7'
+__version__ = '1.1.8'
 
 
 # module level doc-string
