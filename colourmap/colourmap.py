@@ -40,6 +40,9 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'
         The output of color is in the scheme:
         'rgb'
         'hex'
+    verbose : int, optional
+        Print progress to screen. The default is 3.
+        0: None, 1: ERROR, 2: WARN, 3: INFO (default), 4: DEBUG, 5: TRACE
 
     References
     ----------
@@ -201,7 +204,7 @@ def _hex2rgb(c_hex):
 
 
 # %%
-def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb'):
+def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb', verbose=3):
     """Generate colors from input list.
 
     Description
@@ -228,6 +231,9 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb'):
         The output of color is in the scheme:
         'rgb'
         'hex'
+    verbose : int, optional
+        Print progress to screen. The default is 3.
+        0: None, 1: ERROR, 2: WARN, 3: INFO (default), 4: DEBUG, 5: TRACE
 
     Returns
     -------
@@ -249,7 +255,7 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb'):
     # uiy = [y[index] for index in sorted(indexes)]
 
     # Get colors
-    colors_unique = generate(len(uiy), cmap=cmap, method=method, scheme=scheme)
+    colors_unique = generate(len(uiy), cmap=cmap, method=method, scheme=scheme, verbose=verbose)
 
     # Make dict for each search
     colordict = dict(zip(uiy, colors_unique))
