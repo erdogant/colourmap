@@ -1,3 +1,5 @@
+.. include:: add_top.add
+
 Generate N random colors
 ############################
 
@@ -218,10 +220,6 @@ A linear gradient can be created based on the input labels with the function: :f
    :width: 600
    :align: center
 
-.. raw:: html
 
-	<hr>
-	<center>
-		<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEADP27U&placement=erdogantgithubio" id="_carbonads_js"></script>
-	</center>
-	<hr>
+
+.. include:: add_bottom.add
