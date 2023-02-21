@@ -3,8 +3,6 @@ colourmap's documentation!
 
 |python| |pypi| |docs| |stars| |LOC| |downloads_month| |downloads_total| |license| |forks| |open issues| |project status| |colab| |repo-size| |donate|
 
-.. include:: add_top.add
-
 
 ``colourmap`` is a Python library to generate colors in different formats (HEX, RGB) and colormaps.
 

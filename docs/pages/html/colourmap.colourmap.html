@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -68,7 +69,15 @@
 <li class="toctree-l1"><a class="reference internal" href="Documentation.html#github">Github</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Documentation.html#citing">Citing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Coding%20quality.html">Coding quality</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API References</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API References</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.fromlist"><code class="docutils literal notranslate"><span class="pre">fromlist()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.generate"><code class="docutils literal notranslate"><span class="pre">generate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.hex2rgb"><code class="docutils literal notranslate"><span class="pre">hex2rgb()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.hex2rgba"><code class="docutils literal notranslate"><span class="pre">hex2rgba()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.linear_gradient"><code class="docutils literal notranslate"><span class="pre">linear_gradient()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.rgb2hex"><code class="docutils literal notranslate"><span class="pre">rgb2hex()</span></code></a></li>
+</ul>
+</li>
 </ul>
 
     <a href= "genindex.html">Index</a>
@@ -97,19 +106,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <hr>
-<center>
-        <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
-        <div data-ea-publisher="erdogantgithubio" data-ea-type="text"></div>
-        <!-- <div data-ea-publisher="erdogantgithubio" data-ea-type="text" data-ea-style="fixedfooter"></div> -->
-</center>
-<hr><section id="module-colourmap.colourmap">
+  <section id="module-colourmap.colourmap">
 <span id="api-references"></span><h1>API References<a class="headerlink" href="#module-colourmap.colourmap" title="Permalink to this heading"></a></h1>
 <p>Python package colourmap generates an N unique colors from the specified input colormap.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="colourmap.colourmap.fromlist">
 <span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">fromlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'matplotlib'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rgb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.fromlist" title="Permalink to this definition"></a></dt>
 <dd><p>Generate colors from input list.</p>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading"></a></h2>
 <p>This function creates unique colors based on the input list y and the cmap.
 When the gradient hex color is defined, such as ‘#000000’, a gradient coloring space is created between two colors.</p>
 <blockquote>
@@ -117,34 +122,61 @@ When the gradient hex color is defined, such as ‘#000000’, a gradient colori
 The end color is the defined gradient, such as ‘#000000’.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>y</strong> (<em>list of strings</em><em> or </em><em>integers</em>) – For each unique value, a unique color is given back.</p></li>
-<li><p><strong>cmap</strong> (<em>String</em><em>, </em><em>optional</em>) – Colormap. The default is ‘Set1’.</p></li>
-<li><p><strong>gradient</strong> (<em>String</em><em>, </em><em>(</em><em>default: None</em><em>)</em>) – Hex end color for the gradient.
-‘#FFFFFF’</p></li>
-<li><p><strong>method</strong> (<em>String</em><em>, </em><em>optional</em>) – Method to generate colors
-‘matplotlib’ (default)
-‘seaborn’</p></li>
-<li><p><strong>scheme</strong> (<em>String</em><em>, </em><em>optional</em>) – The output of color is in the scheme:
-‘rgb’
-‘hex’</p></li>
-<li><p><strong>verbose</strong> (<em>int</em><em>, </em><em>optional</em>) – Print progress to screen. The default is 3.
-0: None, 1: ERROR, 2: WARN, 3: INFO (default), 4: DEBUG, 5: TRACE</p></li>
-</ul>
+<dt class="field-odd">param y</dt>
+<dd class="field-odd"><p>For each unique value, a unique color is given back.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>List of colors in the same order as y.
+<dt class="field-even">type y</dt>
+<dd class="field-even"><p>list of strings or integers</p>
+</dd>
+<dt class="field-odd">param cmap</dt>
+<dd class="field-odd"><p>Colormap. The default is ‘Set1’.</p>
+</dd>
+<dt class="field-even">type cmap</dt>
+<dd class="field-even"><p>String, optional</p>
+</dd>
+<dt class="field-odd">param gradient</dt>
+<dd class="field-odd"><p>Hex end color for the gradient.
+‘#FFFFFF’</p>
+</dd>
+<dt class="field-even">type gradient</dt>
+<dd class="field-even"><p>String, (default: None)</p>
+</dd>
+<dt class="field-odd">param method</dt>
+<dd class="field-odd"><p>Method to generate colors
+‘matplotlib’ (default)
+‘seaborn’</p>
+</dd>
+<dt class="field-even">type method</dt>
+<dd class="field-even"><p>String, optional</p>
+</dd>
+<dt class="field-odd">param scheme</dt>
+<dd class="field-odd"><p>The output of color is in the scheme:
+‘rgb’
+‘hex’</p>
+</dd>
+<dt class="field-even">type scheme</dt>
+<dd class="field-even"><p>String, optional</p>
+</dd>
+<dt class="field-odd">param verbose</dt>
+<dd class="field-odd"><p>Print progress to screen. The default is 3.
+0: None, 1: ERROR, 2: WARN, 3: INFO (default), 4: DEBUG, 5: TRACE</p>
+</dd>
+<dt class="field-even">type verbose</dt>
+<dd class="field-even"><p>int, optional</p>
+</dd>
+<dt class="field-odd">returns</dt>
+<dd class="field-odd"><p>List of colors in the same order as y.
 dict for the unique colors</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>tuple containing</p>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p>tuple containing</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/bsouthga/blog/blob/master/public/posts/color-gradients-with-python.md">https://github.com/bsouthga/blog/blob/master/public/posts/color-gradients-with-python.md</a></p></li>
 </ul>
+</section>
 </dd></dl>
 
 <dl class="py function">
@@ -221,22 +253,36 @@ dict for the unique colors</p>
 <dt class="sig sig-object py" id="colourmap.colourmap.linear_gradient">
 <span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">linear_gradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_hex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finish_hex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#FFFFFF'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.linear_gradient" title="Permalink to this definition"></a></dt>
 <dd><p>Return a gradient list of (n) colors between two hex colors.</p>
+<section id="id1">
+<h2>Description<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <p>start_hex and finish_hex should be the full six-digit color string, inlcuding the number sign (“#FFFFFF”)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>start_hex</strong> (<em>str</em>) – Hex starting color.</p></li>
-<li><p><strong>finish_hex</strong> (<em>str</em><em>, </em><em>optional</em>) – Hex end color. The default is “#FFFFFF”.</p></li>
-<li><p><strong>n</strong> (<em>int</em><em>, </em><em>(</em><em>default: 10</em><em>)</em>) – Spacing between start-stop colors.</p></li>
-</ul>
+<dt class="field-odd">param start_hex</dt>
+<dd class="field-odd"><p>Hex starting color.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>lineair spacing.</p>
+<dt class="field-even">type start_hex</dt>
+<dd class="field-even"><p>str</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
+<dt class="field-odd">param finish_hex</dt>
+<dd class="field-odd"><p>Hex end color. The default is “#FFFFFF”.</p>
+</dd>
+<dt class="field-even">type finish_hex</dt>
+<dd class="field-even"><p>str, optional</p>
+</dd>
+<dt class="field-odd">param n</dt>
+<dd class="field-odd"><p>Spacing between start-stop colors.</p>
+</dd>
+<dt class="field-even">type n</dt>
+<dd class="field-even"><p>int, (default: 10)</p>
+</dd>
+<dt class="field-odd">returns</dt>
+<dd class="field-odd"><p>lineair spacing.</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p>dict</p>
 </dd>
 </dl>
+</section>
 </dd></dl>
 
 <dl class="py function">
