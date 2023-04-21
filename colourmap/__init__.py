@@ -5,11 +5,12 @@ from colourmap.colourmap import (
     rgb2hex,
     hex2rgb,
     hex2rgba,
+    is_hex_color,
 )
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
-__version__ = '1.1.10'
+__version__ = '1.1.11'
 
 
 # module level doc-string
