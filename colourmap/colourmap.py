@@ -352,3 +352,71 @@ def _color_dict(gradient):
     hex_colors = [_rgb2hex(RGB) for RGB in gradient]
     rgb_colors = np.c_[[RGB[0] for RGB in gradient], [RGB[1] for RGB in gradient], [RGB[2] for RGB in gradient]]
     return {'hex': hex_colors, 'rgb': rgb_colors}
+
+
+def is_hex_color(color, verbose=3):
+    """Check whether the input is a valid hex color code."""
+    if not isinstance(color, str):
+        if verbose>=3: print('[colourmap]> Hex [%s] should be of type string' %(str(color)))
+
+        return False
+
+    if color.startswith('#'):
+        color = color[1:]
+    else:
+        if verbose>=3: print('[colourmap]> Hex [%s] should start with "#"' %(str(color)))
+        return False
+
+    if len(color) != 6:
+        if verbose>=3: print('[colourmap]> Hex [%s] should be of length 7 incl "#"' %(str(color)))
+        return False
+
+    try:
+        int(color, 16)
+        return True
+    except ValueError:
+        return False
+
+
+# %% Create gradient based on density.
+def gradient_on_density(X, labels, gradient='#FFFFFF', cmap='tab20c', c=None, verbose=3):
+    """Set gradient on density color."""
+    try:
+        from scipy.stats import gaussian_kde
+    except:
+        if verbose>=1: print('[colourmap] >ERROR: This function requires scipy. Try: <pip install scipy>')
+        return None
+    
+    if labels is None: labels = np.repeat(0, X.shape[0])
+    if c is None:
+        c_rgb, _ = fromlist(labels, cmap=cmap, method='matplotlib', gradient=gradient)
+
+    uilabels = np.unique(labels)
+    density_colors= np.repeat([1., 1., 1.], len(labels), axis=0).reshape(-1, 3)
+
+    if (len(uilabels)!=len(labels)):
+        for label in uilabels:
+            idx = np.where(labels==label)[0]
+            if X.shape[1]==2:
+                xy = np.vstack([X[idx, 0], X[idx, 1]])
+            else:
+                xy = np.vstack([X[idx, 0], X[idx, 1], X[idx, 2]])
+
+            try:
+                # Compute density
+                z = gaussian_kde(xy)(xy)
+                # Sort on density
+                didx = idx[np.argsort(z)[::-1]]
+            except:
+                didx=idx
+
+            # order colors correctly based Density
+            density_colors[didx] = c_rgb[idx, :]
+            # plt.figure()
+            # plt.scatter(X[didx,0], X[didx,1], color=c_rgb[idx, :])
+            # plt.figure()
+            # plt.scatter(idx, idx, color=c_rgb[idx, :])
+        c_rgb=density_colors
+
+    # Return
+    return c_rgb
