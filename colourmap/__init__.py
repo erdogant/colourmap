@@ -10,7 +10,7 @@ from colourmap.colourmap import (
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
-__version__ = '1.1.11'
+__version__ = '1.1.12'
 
 
 # module level doc-string
@@ -18,8 +18,6 @@ __doc__ = """
 **colourmap**
 =====================================================================
 
-Description
------------
 colourmap generates an N unique colors from the specified input colormap.
 
 Examples
