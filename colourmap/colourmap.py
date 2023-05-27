@@ -206,7 +206,7 @@ def _hex2rgb(c_hex):
 
 
 # %%
-def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb', verbose=3):
+def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb', opaque_type='per_class', verbose=3):
     """Generate colors from input list.
 
     This function creates unique colors based on the input list y and the cmap.
@@ -226,7 +226,7 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
     gradient : String, (default: None)
         Hex color for the gradient based on the density.
         * None: Do not use gradient.
-        * opaque: Towards the edges the points become more opaque and thus not visible.
+        * opaque: Towards the edges the points become more opaque and thus not visible. Note that scheme must be 'rgb'
         * '#FFFFFF': Towards the edges it smooths into this color.
     method : String, optional
         Method to generate colors
@@ -236,6 +236,11 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
         The output of color is in the scheme:
         'rgb'
         'hex'
+    opaque_type : String, optional
+        Method to generate transparancy. Requires scheme='rgb' and input data X
+            * 'per_class': Transprancy is determined on the density within the class label (y)
+            * 'all': Transprancy is determined on all available data points
+            * 'lineair': Transprancy is lineair set within the class label (y)
     verbose : int, optional
         Print progress to screen. The default is 3.
         0: None, 1: ERROR, 2: WARN, 3: INFO (default), 4: DEBUG, 5: TRACE
@@ -262,17 +267,13 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
     y = np.array(y)
     uiy = np.unique(y)
 
-    # Get unique categories without sort
-    # indexes = np.unique(y, return_index=True)[1]
-    # uiy = [y[index] for index in sorted(indexes)]
-
     # Get colors
     colors_unique = generate(len(uiy), cmap=cmap, method=method, scheme=scheme, verbose=verbose)
 
     # Make dict for each search
     colordict = dict(zip(uiy, colors_unique))
     # Create opaque levels
-    opaque = np.array([0.0] * len(y))
+    opaque = np.array([1.0] * len(y))
 
     # Color using density and the gradient.
     if gradient is not None:
@@ -307,13 +308,13 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
             colors = np.array(colors)
 
     # Add a 4th column with the transparancy level.
-    if len(opaque)==colors.shape[0]:
+    if scheme=='rgb':
+        if verbose>=3: print('[colourmap] >Add transparancy to RGB colors (last column)')
         colors = np.c_[colors, opaque]
 
-    # Add gradient for each class
-    if (X is not None) and X.shape[0]==len(y):
-        if verbose>=4: print('[colourmap] >The weight of the color will be determined using the the density in input data X.')
-        colors = gradient_on_density_color(X, colors, y, method='density')
+        # Add gradient for each class
+        if (X is not None) and X.shape[0]==len(y):
+            colors = gradient_on_density_color(X, colors, y, opaque_type=opaque_type, verbose=verbose)
 
     # Return
     return colors, colordict
@@ -380,7 +381,7 @@ def _incremental_steps(start, end, steps, stepsize=None):
     Returns:
         list: List of values representing the linear gradient.
     """
-    if stepsize is None: step_size = (end - start) / (steps - 1)
+    if stepsize is None: step_size = (end - start) / np.maximum((steps - 1), 1)
     gradient = []
     for i in range(steps):
         value = start + step_size * i
@@ -426,14 +427,24 @@ def is_hex_color(color, verbose=3):
 
 
 # %% Create gradient based on density.
-def gradient_on_density_color(X, c_rgb, labels, method='density', showfig=False):
+def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig=False, verbose=3):
     """Set gradient on density color."""
+    if verbose>=4: print('[colourmap] >Add transparancy to RGB colors based on [%s]' %(opaque_type))
     if labels is None: labels = np.repeat(0, X.shape[0])
     from scipy.stats import gaussian_kde
     uilabels = np.unique(labels)
     # Add the transparancy column of not exists
     if c_rgb.shape[1]<=3: c_rgb = np.c_[c_rgb, np.ones(c_rgb.shape[0])]
     density_colors = np.ones_like(c_rgb)
+    
+    if opaque_type=='all':
+        try:
+            # Compute density
+            z = gaussian_kde(X.T)(X.T)
+            weights = _normalize(z[np.argsort(z)[::-1]])
+            c_rgb[:, 3] = weights
+        except:
+            pass
 
     if (len(uilabels)!=len(labels)):
         for label in uilabels:
@@ -448,15 +459,19 @@ def gradient_on_density_color(X, c_rgb, labels, method='density', showfig=False)
                 z = gaussian_kde(xy)(xy)
                 # Sort on density
                 didx = idx[np.argsort(z)[::-1]]
-                weights = _normalize(z[np.argsort(z)[::-1]])
+                passed = True
+                # weights = _normalize(z[np.argsort(z)[::-1]])
             except:
                 didx=idx
+                passed = False
 
             # order colors correctly based Density
             density_colors[didx] = c_rgb[idx, :]
+
             # Update the transparancy level based on the density weights.
-            if method=='density':
-                density_colors[didx, 3]=weights
+            if opaque_type=='per_class':
+                weights = _normalize(z[np.argsort(z)[::-1]]) if passed else np.ones_like(idx)
+                density_colors[didx, 3] = weights
 
             if showfig:
                 plt.figure()
@@ -472,4 +487,6 @@ def gradient_on_density_color(X, c_rgb, labels, method='density', showfig=False)
 
 def _normalize(X):
     x_min, x_max = np.min(X, 0), np.max(X, 0)
-    return (X - x_min) / (x_max - x_min)
+    out = (X - x_min) / (x_max - x_min)
+    out[np.isnan(out)]=1
+    return out
