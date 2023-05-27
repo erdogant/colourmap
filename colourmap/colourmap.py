@@ -306,14 +306,14 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
         else:
             colors = np.array(colors)
 
-    # If the gradient is opaque, then add a 4th column with the transparancy level.
+    # Add a 4th column with the transparancy level.
     if len(opaque)==colors.shape[0]:
         colors = np.c_[colors, opaque]
 
     # Add gradient for each class
     if (X is not None) and X.shape[0]==len(y):
-        if verbose>=4: print('[colourmap] >Color [gradient] is included.')
-        colors = gradient_on_density_color(X, colors, y)
+        if verbose>=4: print('[colourmap] >The weight of the color will be determined using the the density in input data X.')
+        colors = gradient_on_density_color(X, colors, y, method='density')
 
     # Return
     return colors, colordict
@@ -392,8 +392,6 @@ def _incremental_steps(start, end, steps, stepsize=None):
 def _color_dict(gradient):
     """Color to dictionary.
 
-    Description
-    -----------
     Takes in a list of RGB sub-lists and returns dictionary of colors in RGB and
     hex form for use in a graphing function defined later on.
 
@@ -428,12 +426,13 @@ def is_hex_color(color, verbose=3):
 
 
 # %% Create gradient based on density.
-def gradient_on_density_color(X, c_rgb, labels, showfig=False):
+def gradient_on_density_color(X, c_rgb, labels, method='density', showfig=False):
     """Set gradient on density color."""
     if labels is None: labels = np.repeat(0, X.shape[0])
     from scipy.stats import gaussian_kde
     uilabels = np.unique(labels)
-    # density_colors = np.repeat([1., 1., 1.], len(labels), axis=0).reshape(-1, 3)
+    # Add the transparancy column of not exists
+    if c_rgb.shape[1]<=3: c_rgb = np.c_[c_rgb, np.ones(c_rgb.shape[0])]
     density_colors = np.ones_like(c_rgb)
 
     if (len(uilabels)!=len(labels)):
@@ -449,11 +448,15 @@ def gradient_on_density_color(X, c_rgb, labels, showfig=False):
                 z = gaussian_kde(xy)(xy)
                 # Sort on density
                 didx = idx[np.argsort(z)[::-1]]
+                weights = _normalize(z[np.argsort(z)[::-1]])
             except:
                 didx=idx
 
             # order colors correctly based Density
             density_colors[didx] = c_rgb[idx, :]
+            # Update the transparancy level based on the density weights.
+            if method=='density':
+                density_colors[didx, 3]=weights
 
             if showfig:
                 plt.figure()
@@ -465,3 +468,8 @@ def gradient_on_density_color(X, c_rgb, labels, showfig=False):
 
     # Return
     return c_rgb
+
+
+def _normalize(X):
+    x_min, x_max = np.min(X, 0), np.max(X, 0)
+    return (X - x_min) / (x_max - x_min)
