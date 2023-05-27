@@ -206,11 +206,9 @@ def _hex2rgb(c_hex):
 
 
 # %%
-def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb', verbose=3):
+def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb', verbose=3):
     """Generate colors from input list.
 
-    Description
-    ------------
     This function creates unique colors based on the input list y and the cmap.
     When the gradient hex color is defined, such as '#000000', a gradient coloring space is created between two colors.
         The start color of the particular y, using the cmap and
@@ -220,11 +218,16 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb', v
     ----------
     y : list of strings or integers
         For each unique value, a unique color is given back.
+    X : numpy array (optional)
+        Coordinates for the x-axis and y-axis: [x, y]. Should be the same length of y.
+        If X is provided, the gradient will be based on the density.
     cmap : String, optional
         Colormap. The default is 'Set1'.
     gradient : String, (default: None)
-        Hex end color for the gradient.
-        '#FFFFFF'
+        Hex color for the gradient based on the density.
+        * None: Do not use gradient.
+        * opaque: Towards the edges the points become more opaque and thus not visible.
+        * '#FFFFFF': Towards the edges it smooths into this color.
     method : String, optional
         Method to generate colors
         'matplotlib' (default)
@@ -242,6 +245,13 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb', v
     tuple containing:
         List of colors in the same order as y.
         dict for the unique colors
+
+    Examples
+    --------
+    >>> import colourmap as cm
+    >>> # Compute colors per class
+    >>> y=[1,1,2,2,3,1,2,3]
+    >>> rgb, colordict = cm.fromlist(y)
 
     References
     ----------
@@ -261,6 +271,8 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb', v
 
     # Make dict for each search
     colordict = dict(zip(uiy, colors_unique))
+    # Create opaque levels
+    opaque = np.array([0.0] * len(y))
 
     # Color using density and the gradient.
     if gradient is not None:
@@ -278,10 +290,12 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb', v
                 # Set the rgb colors
                 c_gradient = linear_gradient(_rgb2hex(colordict.get(uiy[i]) * 255), finish_hex=gradient, n=sum(Iloc))
                 colors[Iloc] = c_gradient['rgb'] / 255
+                opaque[Iloc] = c_gradient['opaque']
             else:
                 # Set the hex colors
                 c_gradient = linear_gradient(colordict.get(uiy[i]), finish_hex=gradient, n=sum(Iloc))
                 colors[Iloc] = np.array(c_gradient['hex'])
+                opaque[Iloc] = c_gradient['opaque']
     else:
         # Get colors for y
         colors = list(map(colordict.get, y))
@@ -292,16 +306,23 @@ def fromlist(y, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb', v
         else:
             colors = np.array(colors)
 
+    # If the gradient is opaque, then add a 4th column with the transparancy level.
+    if len(opaque)==colors.shape[0]:
+        colors = np.c_[colors, opaque]
+
+    # Add gradient for each class
+    if (X is not None) and X.shape[0]==len(y):
+        if verbose>=4: print('[colourmap] >Color [gradient] is included.')
+        colors = gradient_on_density_color(X, colors, y)
+
     # Return
-    return(colors, colordict)
+    return colors, colordict
 
 
 # %%
 def linear_gradient(start_hex, finish_hex="#FFFFFF", n=10):
     """Return a gradient list of (n) colors between two hex colors.
 
-    Description
-    -----------
     start_hex and finish_hex should be the full six-digit color string, inlcuding the number sign ("#FFFFFF")
 
     Parameters
@@ -318,7 +339,14 @@ def linear_gradient(start_hex, finish_hex="#FFFFFF", n=10):
     dict
         lineair spacing.
 
+    Examples
+    --------
+    >>> import colourmap as cm
+    >>> # Compute linear gradient for 10 points between black and white
+    >>> colors = cm.linear_gradient("#000000", finish_hex="#FFFFFF", n=10)
+
     """
+    if finish_hex=='opaque': finish_hex=start_hex
     # Starting and ending colors in RGB form
     s = _hex2rgb(start_hex)
     f = _hex2rgb(finish_hex)
@@ -336,8 +364,29 @@ def linear_gradient(start_hex, finish_hex="#FFFFFF", n=10):
 
     # convert to dict
     coldict = _color_dict(RGB_list)
+    coldict['opaque'] = _incremental_steps(1, 0, len(RGB_list))
     # return
     return coldict
+
+
+def _incremental_steps(start, end, steps, stepsize=None):
+    """Create a linear gradient between two values.
+
+    Args:
+        start (float): Starting value of the gradient.
+        end (float): Ending value of the gradient.
+        steps (int): Number of steps in the gradient.
+
+    Returns:
+        list: List of values representing the linear gradient.
+    """
+    if stepsize is None: step_size = (end - start) / (steps - 1)
+    gradient = []
+    for i in range(steps):
+        value = start + step_size * i
+        gradient.append(value)
+
+    return gradient[0:steps]
 
 
 def _color_dict(gradient):
@@ -379,20 +428,13 @@ def is_hex_color(color, verbose=3):
 
 
 # %% Create gradient based on density.
-def gradient_on_density(X, labels, gradient='#FFFFFF', cmap='tab20c', c=None, verbose=3):
+def gradient_on_density_color(X, c_rgb, labels, showfig=False):
     """Set gradient on density color."""
-    try:
-        from scipy.stats import gaussian_kde
-    except:
-        if verbose>=1: print('[colourmap] >ERROR: This function requires scipy. Try: <pip install scipy>')
-        return None
-    
     if labels is None: labels = np.repeat(0, X.shape[0])
-    if c is None:
-        c_rgb, _ = fromlist(labels, cmap=cmap, method='matplotlib', gradient=gradient)
-
+    from scipy.stats import gaussian_kde
     uilabels = np.unique(labels)
-    density_colors= np.repeat([1., 1., 1.], len(labels), axis=0).reshape(-1, 3)
+    # density_colors = np.repeat([1., 1., 1.], len(labels), axis=0).reshape(-1, 3)
+    density_colors = np.ones_like(c_rgb)
 
     if (len(uilabels)!=len(labels)):
         for label in uilabels:
@@ -412,10 +454,13 @@ def gradient_on_density(X, labels, gradient='#FFFFFF', cmap='tab20c', c=None, ve
 
             # order colors correctly based Density
             density_colors[didx] = c_rgb[idx, :]
-            # plt.figure()
-            # plt.scatter(X[didx,0], X[didx,1], color=c_rgb[idx, :])
-            # plt.figure()
-            # plt.scatter(idx, idx, color=c_rgb[idx, :])
+
+            if showfig:
+                plt.figure()
+                fig, ax = plt.subplots(1,2, figsize=(20,10))
+                ax[0].scatter(X[didx,0], X[didx,1], color=c_rgb[idx, 0:3], alpha=c_rgb[idx, 3], edgecolor='#000000')
+                ax[1].scatter(idx, idx, color=c_rgb[idx, 0:3], alpha=c_rgb[idx, 3], edgecolor='#000000')
+
         c_rgb=density_colors
 
     # Return
