@@ -237,7 +237,7 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
         'rgb'
         'hex'
     opaque_type : String, optional
-        Method to generate transparancy. Requires scheme='rgb' and input data X
+        Method to generate transparency. Requires scheme='rgb' and input data X
             * 'per_class': Transprancy is determined on the density within the class label (y)
             * 'all': Transprancy is determined on all available data points
             * 'lineair': Transprancy is lineair set within the class label (y)
@@ -307,9 +307,9 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
         else:
             colors = np.array(colors)
 
-    # Add a 4th column with the transparancy level.
+    # Add a 4th column with the transparency level.
     if scheme=='rgb':
-        if verbose>=3: print('[colourmap] >Add transparancy to RGB colors (last column)')
+        if verbose>=3: print('[colourmap] >Add transparency to RGB colors (last column)')
         colors = np.c_[colors, opaque]
 
         # Add gradient for each class
@@ -430,9 +430,9 @@ def is_hex_color(color, verbose=3):
 def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig=False, verbose=3):
     """Set gradient on density color.
 
-    This function determines the density of the data and adds a transparancy column.
-    If samples are in dense areas, transparancy values are towards 1 (visible), whereas isn none-dense areas,
-    the transparancy values are towards 0 (not visible).
+    This function determines the density of the data and adds a transparency column.
+    If samples are in dense areas, transparency values are towards 1 (visible), whereas isn none-dense areas,
+    the transparency values are towards 0 (not visible).
 
     Parameters
     ----------
@@ -452,14 +452,14 @@ def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig
     Returns
     -------
     c_rgb : array-like of Nx4
-        RGB for which the last column is the transparancy.
+        RGB for which the last column is the transparency.
 
     """
-    if verbose>=4: print('[colourmap] >Add transparancy to RGB colors based on [%s]' %(opaque_type))
+    if verbose>=4: print('[colourmap] >Add transparency to RGB colors based on [%s]' %(opaque_type))
     if labels is None: labels = np.repeat(0, X.shape[0])
     from scipy.stats import gaussian_kde
     uilabels = np.unique(labels)
-    # Add the transparancy column of not exists
+    # Add the transparency column of not exists
     if c_rgb.shape[1]<=3: c_rgb = np.c_[c_rgb, np.ones(c_rgb.shape[0])]
     density_colors = np.ones_like(c_rgb)
 
@@ -494,7 +494,7 @@ def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig
             # order colors correctly based Density
             density_colors[didx] = c_rgb[idx, :]
 
-            # Update the transparancy level based on the density weights.
+            # Update the transparency level based on the density weights.
             if opaque_type=='per_class':
                 weights = _normalize(z[np.argsort(z)[::-1]]) if passed else np.ones_like(idx)
                 density_colors[didx, 3] = weights
