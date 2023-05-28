@@ -428,7 +428,33 @@ def is_hex_color(color, verbose=3):
 
 # %% Create gradient based on density.
 def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig=False, verbose=3):
-    """Set gradient on density color."""
+    """Set gradient on density color.
+
+    This function determines the density of the data and adds a transparancy column.
+    If samples are in dense areas, transparancy values are towards 1 (visible), whereas isn none-dense areas,
+    the transparancy values are towards 0 (not visible).
+
+    Parameters
+    ----------
+    X : Array-like
+        Input data to determine the density.
+    c_rgb : array-like of type Nx3 or Nx4
+        RGB colors.
+    labels: list of labels with same size as X
+        labels of the samples.
+    opaque_type : String, optional
+            * 'per_class': Transprancy is determined on the density within the class label (y)
+            * 'all': Transprancy is determined on all available data points
+            * 'lineair': Transprancy is lineair set within the class label (y)
+    showfig : Bool, default: False
+        Show figure as sanity check.
+
+    Returns
+    -------
+    c_rgb : array-like of Nx4
+        RGB for which the last column is the transparancy.
+
+    """
     if verbose>=4: print('[colourmap] >Add transparancy to RGB colors based on [%s]' %(opaque_type))
     if labels is None: labels = np.repeat(0, X.shape[0])
     from scipy.stats import gaussian_kde
@@ -436,7 +462,7 @@ def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig
     # Add the transparancy column of not exists
     if c_rgb.shape[1]<=3: c_rgb = np.c_[c_rgb, np.ones(c_rgb.shape[0])]
     density_colors = np.ones_like(c_rgb)
-    
+
     if opaque_type=='all':
         try:
             # Compute density
@@ -475,8 +501,8 @@ def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig
 
             if showfig:
                 plt.figure()
-                fig, ax = plt.subplots(1,2, figsize=(20,10))
-                ax[0].scatter(X[didx,0], X[didx,1], color=c_rgb[idx, 0:3], alpha=c_rgb[idx, 3], edgecolor='#000000')
+                fig, ax = plt.subplots(1, 2, figsize=(20, 10))
+                ax[0].scatter(X[didx, 0], X[didx, 1], color=c_rgb[idx, 0:3], alpha=c_rgb[idx, 3], edgecolor='#000000')
                 ax[1].scatter(idx, idx, color=c_rgb[idx, 0:3], alpha=c_rgb[idx, 3], edgecolor='#000000')
 
         c_rgb=density_colors

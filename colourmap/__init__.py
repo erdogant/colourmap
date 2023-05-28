@@ -6,6 +6,7 @@ from colourmap.colourmap import (
     hex2rgb,
     hex2rgba,
     is_hex_color,
+    gradient_on_density_color,
 )
 
 __author__ = 'Erdogan Tasksen'
