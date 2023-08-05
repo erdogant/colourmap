@@ -64,7 +64,6 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'
 
     """
     # Set the logger
-    verbose = convert_verbose_to_new(verbose)
     set_logger(verbose=verbose)
     listlen = 4 if keep_alpha else 3
 
@@ -274,7 +273,6 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
 
     """
     # Set the logger
-    verbose = convert_verbose_to_new(verbose)
     set_logger(verbose=verbose)
     # make unique
     y = np.array(y)
@@ -600,6 +598,7 @@ def set_logger(verbose: [str, int] = 'info'):
     # Set 0 and None as no messages.
     if (verbose==0) or (verbose is None):
         verbose=60
+    verbose = convert_verbose_to_new(verbose)
     # Convert str to levels
     if isinstance(verbose, str):
         levels = {'silent': 60,
