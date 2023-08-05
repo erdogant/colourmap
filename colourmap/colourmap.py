@@ -52,7 +52,7 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'
         'hex'
     verbose : int, (default: 'info')
         Print progress to screen. The default is 'info'
-        60: None, 40: Error, 30: Warn, 20: Info, 10: Debug
+        60: None, 40: error, 30: warning, 20: info, 10: debug
 
     References
     ----------
@@ -253,7 +253,7 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
             * 'lineair': Transprancy is lineair set within the class label (y)
     verbose : int, (default: 'info')
         Print progress to screen. The default is 'info'
-        60: None, 40: Error, 30: Warn, 20: Info, 10: Debug
+        60: None, 40: error, 30: warning, 20: info, 10: debug
 
     Returns
     -------
@@ -420,10 +420,9 @@ def is_hex_color(color, verbose='info'):
 
     verbose : int, (default: 'info')
         Print progress to screen. The default is 'info'
-        60: None, 40: Error, 30: Warn, 20: Info, 10: Debug
+        60: None, 40: error, 30: warning, 20: info, 10: debug
     """
     # Set the logger
-    verbose = convert_verbose_to_new(verbose)
     set_logger(verbose=verbose)
 
     if not isinstance(color, str):
@@ -472,7 +471,7 @@ def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig
         Show figure as sanity check.
     verbose : int, (default: 'info')
         Print progress to screen. The default is 'info'
-        60: None, 40: Error, 30: Warn, 20: Info, 10: Debug
+        60: None, 40: error, 30: warning, 20: info, 10: debug
 
     Returns
     -------
@@ -481,9 +480,7 @@ def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig
 
     """
     # Set the logger
-    verbose = convert_verbose_to_new(verbose)
     set_logger(verbose=verbose)
-    logger.debug('Add transparency to RGB colors based on [%s]' %(opaque_type))
 
     if labels is None: labels = np.repeat(0, X.shape[0])
     from scipy.stats import gaussian_kde
@@ -548,8 +545,9 @@ def _normalize(X):
 
 
 def convert_verbose_to_new(verbose):
-    """Convert new verbosity to the old ones."""
+    """Convert old verbosity to the new one."""
     # In case the new verbosity is used, convert to the old one.
+    if verbose is None: verbose=0
     if not isinstance(verbose, str) and verbose<10:
         status_map = {
             'None': 'silent',
