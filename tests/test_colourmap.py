@@ -26,7 +26,7 @@ def test_colourmap():
     # Check 6: fromlist    
     y=[1,1,2,2,3]
     out = colourmap.fromlist(y)
-    assert out[0].shape==(len(y),3)
+    assert out[0].shape==(len(y),4)
     assert len(out[1].values())==len(np.unique(y))
     
 

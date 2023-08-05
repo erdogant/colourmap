@@ -5,7 +5,15 @@ print(colourmap.__version__)
 colors = colourmap.linear_gradient("#000000", finish_hex="#FFFFFF", n=10)
 
 # %%
-colors = colourmap.generate(10, cmap='Set1', keep_alpha=False)
+colors = colourmap.generate(10, cmap='Set1', keep_alpha=False, verbose='info')
+
+# %%
+colors = colourmap.generate(10, cmap='Set1', keep_alpha=False, verbose=0)
+colors = colourmap.generate(10, cmap='Set1', keep_alpha=False, verbose=1)
+colors = colourmap.generate(10, cmap='Set1', keep_alpha=False, verbose=2)
+colors = colourmap.generate(10, cmap='Set1', keep_alpha=False, verbose=3)
+colors = colourmap.generate(10, cmap='Set1', keep_alpha=False, verbose=4)
+colors = colourmap.generate(10, cmap='Set1', keep_alpha=False, verbose=5)
 
 # %% Convert RGB to hex
 hexcolors = colourmap.rgb2hex(colors)

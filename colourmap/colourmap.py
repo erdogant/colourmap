@@ -10,10 +10,20 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+import logging
+
+# Configure the logger
+logger = logging.getLogger('')
+[logger.removeHandler(handler) for handler in logger.handlers[:]]
+console = logging.StreamHandler()
+formatter = logging.Formatter('[clustimage] >%(levelname)s> %(message)s')
+console.setFormatter(formatter)
+logger.addHandler(console)
+logger = logging.getLogger()
 
 
 # %% Main
-def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb', verbose=3):
+def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb', verbose='info'):
     """Generate N RGB colors for cmap.
 
     Parameters
@@ -40,9 +50,9 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'
         The output of color is in the scheme:
         'rgb'
         'hex'
-    verbose : int, optional
-        Print progress to screen. The default is 3.
-        0: None, 1: ERROR, 2: WARN, 3: INFO (default), 4: DEBUG, 5: TRACE
+    verbose : int, (default: 'info')
+        Print progress to screen. The default is 'info'
+        60: None, 40: Error, 30: Warn, 20: Info, 10: Debug
 
     References
     ----------
@@ -53,10 +63,10 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'
     color_list : numpy array with colors that range between [0-1, 0-1, 0-1].
 
     """
-    if keep_alpha:
-        listlen=4
-    else:
-        listlen=3
+    # Set the logger
+    verbose = convert_verbose_to_new(verbose)
+    set_logger(verbose=verbose)
+    listlen = 4 if keep_alpha else 3
 
     if method=='seaborn':
         sns = _check_seaborn()
@@ -70,7 +80,7 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'
         # If there are not enough colors in the cmap, use the seaborn method.
         uicolors = len(np.unique(rgb2hex(color_list)))
         if uicolors != N:
-            if verbose>=2: print('[colourmap]> Warning: Colormap [%s] can not create [%d] unique colors! Available unique colors: [%d].' %(cmap, N, uicolors))
+            logger.warning('Colormap [%s] can not create [%d] unique colors! Available unique colors: [%d].' %(cmap, N, uicolors))
 
     # Set the output coloring scheme
     if scheme=='hex':
@@ -206,7 +216,7 @@ def _hex2rgb(c_hex):
 
 
 # %%
-def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb', opaque_type='per_class', verbose=3):
+def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme='rgb', opaque_type='per_class', verbose='info'):
     """Generate colors from input list.
 
     This function creates unique colors based on the input list y and the cmap.
@@ -241,9 +251,9 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
             * 'per_class': Transprancy is determined on the density within the class label (y)
             * 'all': Transprancy is determined on all available data points
             * 'lineair': Transprancy is lineair set within the class label (y)
-    verbose : int, optional
-        Print progress to screen. The default is 3.
-        0: None, 1: ERROR, 2: WARN, 3: INFO (default), 4: DEBUG, 5: TRACE
+    verbose : int, (default: 'info')
+        Print progress to screen. The default is 'info'
+        60: None, 40: Error, 30: Warn, 20: Info, 10: Debug
 
     Returns
     -------
@@ -263,6 +273,9 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
         * https://github.com/bsouthga/blog/blob/master/public/posts/color-gradients-with-python.md
 
     """
+    # Set the logger
+    verbose = convert_verbose_to_new(verbose)
+    set_logger(verbose=verbose)
     # make unique
     y = np.array(y)
     uiy = np.unique(y)
@@ -309,7 +322,7 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
 
     # Add a 4th column with the transparency level.
     if scheme=='rgb':
-        if verbose>=3: print('[colourmap] >Add transparency to RGB colors (last column)')
+        logger.info('Add transparency to RGB colors (last column)')
         colors = np.c_[colors, opaque]
 
         # Add gradient for each class
@@ -402,21 +415,30 @@ def _color_dict(gradient):
     return {'hex': hex_colors, 'rgb': rgb_colors}
 
 
-def is_hex_color(color, verbose=3):
-    """Check whether the input is a valid hex color code."""
+def is_hex_color(color, verbose='info'):
+    """Check whether the input is a valid hex color code.
+
+    verbose : int, (default: 'info')
+        Print progress to screen. The default is 'info'
+        60: None, 40: Error, 30: Warn, 20: Info, 10: Debug
+    """
+    # Set the logger
+    verbose = convert_verbose_to_new(verbose)
+    set_logger(verbose=verbose)
+
     if not isinstance(color, str):
-        if verbose>=3: print('[colourmap]> Hex [%s] should be of type string' %(str(color)))
+        logger.info('Hex [%s] should be of type string' %(str(color)))
 
         return False
 
     if color.startswith('#'):
         color = color[1:]
     else:
-        if verbose>=3: print('[colourmap]> Hex [%s] should start with "#"' %(str(color)))
+        logger.info('Hex [%s] should start with "#"' %(str(color)))
         return False
 
     if len(color) != 6:
-        if verbose>=3: print('[colourmap]> Hex [%s] should be of length 7 incl "#"' %(str(color)))
+        logger.info('Hex [%s] should be of length 7 incl "#"' %(str(color)))
         return False
 
     try:
@@ -427,7 +449,7 @@ def is_hex_color(color, verbose=3):
 
 
 # %% Create gradient based on density.
-def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig=False, verbose=3):
+def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig=False, verbose='info'):
     """Set gradient on density color.
 
     This function determines the density of the data and adds a transparency column.
@@ -448,6 +470,9 @@ def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig
             * 'lineair': Transprancy is lineair set within the class label (y)
     showfig : Bool, default: False
         Show figure as sanity check.
+    verbose : int, (default: 'info')
+        Print progress to screen. The default is 'info'
+        60: None, 40: Error, 30: Warn, 20: Info, 10: Debug
 
     Returns
     -------
@@ -455,7 +480,11 @@ def gradient_on_density_color(X, c_rgb, labels, opaque_type='per_class', showfig
         RGB for which the last column is the transparency.
 
     """
-    if verbose>=4: print('[colourmap] >Add transparency to RGB colors based on [%s]' %(opaque_type))
+    # Set the logger
+    verbose = convert_verbose_to_new(verbose)
+    set_logger(verbose=verbose)
+    logger.debug('Add transparency to RGB colors based on [%s]' %(opaque_type))
+
     if labels is None: labels = np.repeat(0, X.shape[0])
     from scipy.stats import gaussian_kde
     uilabels = np.unique(labels)
@@ -516,3 +545,80 @@ def _normalize(X):
     out = (X - x_min) / (x_max - x_min)
     out[np.isnan(out)]=1
     return out
+
+
+def convert_verbose_to_new(verbose):
+    """Convert new verbosity to the old ones."""
+    # In case the new verbosity is used, convert to the old one.
+    if not isinstance(verbose, str) and verbose<10:
+        status_map = {
+            'None': 'silent',
+            0: 'silent',
+            6: 'silent',
+            1: 'critical',
+            2: 'warning',
+            3: 'info',
+            4: 'debug',
+            5: 'debug'}
+        if verbose>=2: print('[colourmap] WARNING use the new verbose status. This will be deprecated in future versions.')
+        return status_map.get(verbose, 0)
+    else:
+        return verbose
+
+
+# %%
+def get_logger():
+    """Return logger status."""
+    return logger.getEffectiveLevel()
+
+
+# %%
+def set_logger(verbose: [str, int] = 'info'):
+    """Set the logger for verbosity messages.
+
+    Parameters
+    ----------
+    verbose : [str, int], default is 'info' or 20
+        Set the verbose messages using string or integer values.
+        * [0, 60, None, 'silent', 'off', 'no']: No message.
+        * [10, 'debug']: Messages from debug level and higher.
+        * [20, 'info']: Messages from info level and higher.
+        * [30, 'warning']: Messages from warning level and higher.
+        * [50, 'critical', 'error']: Messages from critical level and higher.
+
+    Returns
+    -------
+    None.
+
+    > # Set the logger to warning
+    > set_logger(verbose='warning')
+    > # Test with different messages
+    > logger.debug("Hello debug")
+    > logger.info("Hello info")
+    > logger.warning("Hello warning")
+    > logger.critical("Hello critical")
+
+    """
+    # Set 0 and None as no messages.
+    if (verbose==0) or (verbose is None):
+        verbose=60
+    # Convert str to levels
+    if isinstance(verbose, str):
+        levels = {'silent': 60,
+                  'off': 60,
+                  'no': 60,
+                  'debug': 10,
+                  'info': 20,
+                  'warning': 30,
+                  'error': 50,
+                  'critical': 50}
+        verbose = levels[verbose]
+
+    # Show examples
+    logger.setLevel(verbose)
+
+
+# %%
+def disable_tqdm():
+    """Set the logger for verbosity messages."""
+    return (True if (logger.getEffectiveLevel()>=30) else False)
