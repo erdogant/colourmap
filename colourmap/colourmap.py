@@ -13,13 +13,12 @@ import numpy as np
 import logging
 
 # Configure the logger
-logger = logging.getLogger('')
+logger = logging.getLogger(__name__)
 [logger.removeHandler(handler) for handler in logger.handlers[:]]
 console = logging.StreamHandler()
 formatter = logging.Formatter('[clustimage] >%(levelname)s> %(message)s')
 console.setFormatter(formatter)
 logger.addHandler(console)
-logger = logging.getLogger()
 
 
 # %% Main
