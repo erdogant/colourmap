@@ -13,7 +13,7 @@ else:
 with open("README.md", "r", encoding="utf8") as fh:
     long_description = fh.read()
 setuptools.setup(
-     install_requires=['matplotlib>=3.10','numpy'],
+     install_requires=['matplotlib','numpy'],
      python_requires='>=3',
      name='colourmap',
      version=new_version,
