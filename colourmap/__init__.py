@@ -7,11 +7,12 @@ from colourmap.colourmap import (
     hex2rgba,
     is_hex_color,
     gradient_on_density_color,
+    check_logger,
 )
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
-__version__ = '1.1.19'
+__version__ = '1.1.20'
 
 
 # module level doc-string

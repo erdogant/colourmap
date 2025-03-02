@@ -1,6 +1,23 @@
 import colourmap
 print(colourmap.__version__)
 
+# %% Verbose test
+import colourmap
+colourmap.check_logger(verbose=4)
+
+import pypickle
+pypickle.check_logger(verbose='error')
+
+colourmap.check_logger(verbose=20)
+colourmap.check_logger(verbose=30)
+colourmap.check_logger(verbose=40)
+
+from distfit import distfit
+dfit = distfit(verbose='debug')
+dfit.check_verbosity()
+
+colourmap.check_logger(verbose='debug')
+
 # %%
 colors = colourmap.linear_gradient("#000000", finish_hex="#FFFFFF", n=10)
 

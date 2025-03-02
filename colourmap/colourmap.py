@@ -12,13 +12,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import logging
 
-# Configure the logger
-logger = logging.getLogger(__name__)
+# Ensuring a minimum width of 12
+NAME_WIDTH = max(len(__name__), 12)
+logger = logging.getLogger('')
 [logger.removeHandler(handler) for handler in logger.handlers[:]]
-console = logging.StreamHandler()
-formatter = logging.Formatter('[clustimage] >%(levelname)s> %(message)s')
-console.setFormatter(formatter)
-logger.addHandler(console)
+logging.basicConfig(
+    format=f"%(asctime)s [%(name)-{NAME_WIDTH}s]> %(levelname)-8s> %(message)s",
+    datefmt="%d-%m-%y %H:%M:%S",
+    level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 # %% Main
@@ -612,6 +614,16 @@ def set_logger(verbose: [str, int] = 'info'):
 
     # Show examples
     logger.setLevel(verbose)
+
+
+# %%
+def check_logger(verbose: [str, int] = 'info'):
+    """Check the logger."""
+    set_logger(verbose)
+    logger.debug('DEBUG')
+    logger.info('INFO')
+    logger.warning('WARNING')
+    logger.critical('CRITICAL')
 
 
 # %%
