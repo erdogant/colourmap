@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "colourmap"
+dynamic = ["version"]
+authors = [{ name = "Erdogan Taskesen", email = "erdogant@gmail.com" },]
+description = "Python package colourmap generates an N unique colors from the specified input colormap."
+readme = "README.md"
+requires-python = ">=3"
+license = { file = "LICENSE" }
+keywords = ["Python", ""]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    'matplotlib',
+    'numpy',
+]
+
+[project.urls]
+Homepage = "https://erdogant.github.io/colourmap"
+Download = "https://github.com/erdogant/colourmap/archive/{version}.tar.gz"
+
+[tool.setuptools]
+packages = ["colourmap"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = { attr = "colourmap.__version__" }
