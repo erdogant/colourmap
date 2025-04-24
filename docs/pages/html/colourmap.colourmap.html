@@ -1,23 +1,22 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API References &mdash; colourmap colourmap documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e0179649" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=07d6e4ef"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,14 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> colourmap
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            colourmap
           </a>
-              <div class="version">
-                1.1.10
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -70,12 +70,19 @@
 <li class="toctree-l1"><a class="reference internal" href="Documentation.html#citing">Citing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Coding%20quality.html">Coding quality</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API References</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.check_logger"><code class="docutils literal notranslate"><span class="pre">check_logger()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.convert_verbose_to_new"><code class="docutils literal notranslate"><span class="pre">convert_verbose_to_new()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.disable_tqdm"><code class="docutils literal notranslate"><span class="pre">disable_tqdm()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.fromlist"><code class="docutils literal notranslate"><span class="pre">fromlist()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.generate"><code class="docutils literal notranslate"><span class="pre">generate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.get_logger"><code class="docutils literal notranslate"><span class="pre">get_logger()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.gradient_on_density_color"><code class="docutils literal notranslate"><span class="pre">gradient_on_density_color()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.hex2rgb"><code class="docutils literal notranslate"><span class="pre">hex2rgb()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.hex2rgba"><code class="docutils literal notranslate"><span class="pre">hex2rgba()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.is_hex_color"><code class="docutils literal notranslate"><span class="pre">is_hex_color()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.linear_gradient"><code class="docutils literal notranslate"><span class="pre">linear_gradient()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.rgb2hex"><code class="docutils literal notranslate"><span class="pre">rgb2hex()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#colourmap.colourmap.set_logger"><code class="docutils literal notranslate"><span class="pre">set_logger()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -95,8 +102,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>API References</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API References</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/colourmap.colourmap.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -107,14 +114,30 @@
            <div itemprop="articleBody">
              
   <section id="module-colourmap.colourmap">
-<span id="api-references"></span><h1>API References<a class="headerlink" href="#module-colourmap.colourmap" title="Permalink to this heading"></a></h1>
+<span id="api-references"></span><h1>API References<a class="headerlink" href="#module-colourmap.colourmap" title="Link to this heading"></a></h1>
 <p>Python package colourmap generates an N unique colors from the specified input colormap.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="colourmap.colourmap.check_logger">
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">check_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose:</span> <span class="pre">[&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'int'&gt;]</span> <span class="pre">=</span> <span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.check_logger" title="Link to this definition"></a></dt>
+<dd><p>Check the logger.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="colourmap.colourmap.convert_verbose_to_new">
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">convert_verbose_to_new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.convert_verbose_to_new" title="Link to this definition"></a></dt>
+<dd><p>Convert old verbosity to the new one.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="colourmap.colourmap.disable_tqdm">
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">disable_tqdm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.disable_tqdm" title="Link to this definition"></a></dt>
+<dd><p>Set the logger for verbosity messages.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="colourmap.colourmap.fromlist">
-<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">fromlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'matplotlib'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rgb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.fromlist" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">fromlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'matplotlib'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rgb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opaque_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'per_class'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.fromlist" title="Link to this definition"></a></dt>
 <dd><p>Generate colors from input list.</p>
-<section id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading"></a></h2>
 <p>This function creates unique colors based on the input list y and the cmap.
 When the gradient hex color is defined, such as ‘#000000’, a gradient coloring space is created between two colors.</p>
 <blockquote>
@@ -122,69 +145,62 @@ When the gradient hex color is defined, such as ‘#000000’, a gradient colori
 The end color is the defined gradient, such as ‘#000000’.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">param y</dt>
-<dd class="field-odd"><p>For each unique value, a unique color is given back.</p>
-</dd>
-<dt class="field-even">type y</dt>
-<dd class="field-even"><p>list of strings or integers</p>
-</dd>
-<dt class="field-odd">param cmap</dt>
-<dd class="field-odd"><p>Colormap. The default is ‘Set1’.</p>
-</dd>
-<dt class="field-even">type cmap</dt>
-<dd class="field-even"><p>String, optional</p>
-</dd>
-<dt class="field-odd">param gradient</dt>
-<dd class="field-odd"><p>Hex end color for the gradient.
-‘#FFFFFF’</p>
-</dd>
-<dt class="field-even">type gradient</dt>
-<dd class="field-even"><p>String, (default: None)</p>
-</dd>
-<dt class="field-odd">param method</dt>
-<dd class="field-odd"><p>Method to generate colors
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>list</em><em> of </em><em>strings</em><em> or </em><em>integers</em>) – For each unique value, a unique color is given back.</p></li>
+<li><p><strong>X</strong> (<em>numpy array</em><em> (</em><em>optional</em><em>)</em>) – Coordinates for the x-axis and y-axis: [x, y]. Should be the same length of y.
+If X is provided, the gradient will be based on the density.</p></li>
+<li><p><strong>cmap</strong> (<em>String</em><em>, </em><em>optional</em>) – Colormap. The default is ‘Set1’.</p></li>
+<li><p><strong>gradient</strong> (<em>String</em><em>, </em><em>(</em><em>default: None</em><em>)</em>) – Hex color for the gradient based on the density.
+* None: Do not use gradient.
+* opaque: Towards the edges the points become more opaque and thus not visible. Note that scheme must be ‘rgb’
+* ‘#FFFFFF’: Towards the edges it smooths into this color.</p></li>
+<li><p><strong>method</strong> (<em>String</em><em>, </em><em>optional</em>) – Method to generate colors
 ‘matplotlib’ (default)
-‘seaborn’</p>
-</dd>
-<dt class="field-even">type method</dt>
-<dd class="field-even"><p>String, optional</p>
-</dd>
-<dt class="field-odd">param scheme</dt>
-<dd class="field-odd"><p>The output of color is in the scheme:
+‘seaborn’</p></li>
+<li><p><strong>scheme</strong> (<em>String</em><em>, </em><em>optional</em>) – The output of color is in the scheme:
 ‘rgb’
-‘hex’</p>
-</dd>
-<dt class="field-even">type scheme</dt>
-<dd class="field-even"><p>String, optional</p>
-</dd>
-<dt class="field-odd">param verbose</dt>
-<dd class="field-odd"><p>Print progress to screen. The default is 3.
-0: None, 1: ERROR, 2: WARN, 3: INFO (default), 4: DEBUG, 5: TRACE</p>
-</dd>
-<dt class="field-even">type verbose</dt>
-<dd class="field-even"><p>int, optional</p>
-</dd>
-<dt class="field-odd">returns</dt>
-<dd class="field-odd"><p>List of colors in the same order as y.
-dict for the unique colors</p>
-</dd>
-<dt class="field-even">rtype</dt>
-<dd class="field-even"><p>tuple containing</p>
+‘hex’</p></li>
+<li><p><strong>opaque_type</strong> (<em>String</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>Method to generate transparency. Requires scheme=’rgb’ and input data X</dt><dd><ul>
+<li><p>’per_class’: Transprancy is determined on the density within the class label (y)</p></li>
+<li><p>’all’: Transprancy is determined on all available data points</p></li>
+<li><p>’lineair’: Transprancy is lineair set within the class label (y)</p></li>
+</ul>
 </dd>
 </dl>
+</p></li>
+<li><p><strong>verbose</strong> (<em>int</em><em>, </em><em>(</em><em>default: 'info'</em><em>)</em>) – Print progress to screen. The default is ‘info’
+60: None, 40: error, 30: warning, 20: info, 10: debug</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of colors in the same order as y.
+dict for the unique colors</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple containing</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">colourmap</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute colors per class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rgb</span><span class="p">,</span> <span class="n">colordict</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">fromlist</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
 <p class="rubric">References</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/bsouthga/blog/blob/master/public/posts/color-gradients-with-python.md">https://github.com/bsouthga/blog/blob/master/public/posts/color-gradients-with-python.md</a></p></li>
 </ul>
-</section>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="colourmap.colourmap.generate">
-<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'matplotlib'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rgb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.generate" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Set1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'matplotlib'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rgb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.generate" title="Link to this definition"></a></dt>
 <dd><p>Generate N RGB colors for cmap.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>N</strong> (<em>Integer</em>) – Number of colors to be generated.</p></li>
 <li><p><strong>cmap</strong> (<em>String</em><em>, </em><em>optional</em>) – ‘Set1’       (default)
@@ -204,32 +220,71 @@ dict for the unique colors</p>
 <li><p><strong>scheme</strong> (<em>String</em><em>, </em><em>optional</em>) – The output of color is in the scheme:
 ‘rgb’
 ‘hex’</p></li>
-<li><p><strong>verbose</strong> (<em>int</em><em>, </em><em>optional</em>) – Print progress to screen. The default is 3.
-0: None, 1: ERROR, 2: WARN, 3: INFO (default), 4: DEBUG, 5: TRACE</p></li>
+<li><p><strong>verbose</strong> (<em>int</em><em>, </em><em>(</em><em>default: 'info'</em><em>)</em>) – Print progress to screen. The default is ‘info’
+60: None, 40: error, 30: warning, 20: info, 10: debug</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">References</p>
 <p>Colormap: <a class="reference external" href="https://matplotlib.org/examples/color/colormaps_reference.html">https://matplotlib.org/examples/color/colormaps_reference.html</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>color_list</strong></p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>numpy array with colors that range between [0-1, 0-1, 0-1].</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="colourmap.colourmap.get_logger">
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.get_logger" title="Link to this definition"></a></dt>
+<dd><p>Return logger status.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="colourmap.colourmap.gradient_on_density_color">
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">gradient_on_density_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_rgb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opaque_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'per_class'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">showfig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.gradient_on_density_color" title="Link to this definition"></a></dt>
+<dd><p>Set gradient on density color.</p>
+<p>This function determines the density of the data and adds a transparency column.
+If samples are in dense areas, transparency values are towards 1 (visible), whereas isn none-dense areas,
+the transparency values are towards 0 (not visible).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>Array-like</em>) – Input data to determine the density.</p></li>
+<li><p><strong>c_rgb</strong> (<em>array-like</em><em> of </em><em>type Nx3</em><em> or </em><em>Nx4</em>) – RGB colors.</p></li>
+<li><p><strong>labels</strong> (<em>list</em><em> of </em><em>labels with same size as X</em>) – labels of the samples.</p></li>
+<li><p><strong>opaque_type</strong> (<em>String</em><em>, </em><em>optional</em>) – <ul>
+<li><p>‘per_class’: Transprancy is determined on the density within the class label (y)</p></li>
+<li><p>’all’: Transprancy is determined on all available data points</p></li>
+<li><p>’lineair’: Transprancy is lineair set within the class label (y)</p></li>
+</ul>
+</p></li>
+<li><p><strong>showfig</strong> (<em>Bool</em><em>, </em><em>default: False</em>) – Show figure as sanity check.</p></li>
+<li><p><strong>verbose</strong> (<em>int</em><em>, </em><em>(</em><em>default: 'info'</em><em>)</em>) – Print progress to screen. The default is ‘info’
+60: None, 40: error, 30: warning, 20: info, 10: debug</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>c_rgb</strong> – RGB for which the last column is the transparency.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array-like of Nx4</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="colourmap.colourmap.hex2rgb">
-<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">hex2rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">colors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.hex2rgb" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">hex2rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">colors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.hex2rgb" title="Link to this definition"></a></dt>
 <dd><p>Convert hex color-range to RGB.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>colors</strong> (<em>list</em>) – list of str.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list of rgb colors.</p>
 </dd>
 </dl>
@@ -237,67 +292,99 @@ dict for the unique colors</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="colourmap.colourmap.hex2rgba">
-<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">hex2rgba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">colors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.hex2rgba" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">hex2rgba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">colors</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.hex2rgba" title="Link to this definition"></a></dt>
 <dd><p>Convert hex color-range to RGBA.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>colors</strong> (<em>list</em>) – list of str.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list of rgb colors.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="colourmap.colourmap.linear_gradient">
-<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">linear_gradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_hex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finish_hex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#FFFFFF'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.linear_gradient" title="Permalink to this definition"></a></dt>
-<dd><p>Return a gradient list of (n) colors between two hex colors.</p>
-<section id="id1">
-<h2>Description<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
-<p>start_hex and finish_hex should be the full six-digit color string, inlcuding the number sign (“#FFFFFF”)</p>
-<dl class="field-list simple">
-<dt class="field-odd">param start_hex</dt>
-<dd class="field-odd"><p>Hex starting color.</p>
-</dd>
-<dt class="field-even">type start_hex</dt>
-<dd class="field-even"><p>str</p>
-</dd>
-<dt class="field-odd">param finish_hex</dt>
-<dd class="field-odd"><p>Hex end color. The default is “#FFFFFF”.</p>
-</dd>
-<dt class="field-even">type finish_hex</dt>
-<dd class="field-even"><p>str, optional</p>
-</dd>
-<dt class="field-odd">param n</dt>
-<dd class="field-odd"><p>Spacing between start-stop colors.</p>
-</dd>
-<dt class="field-even">type n</dt>
-<dd class="field-even"><p>int, (default: 10)</p>
-</dd>
-<dt class="field-odd">returns</dt>
-<dd class="field-odd"><p>lineair spacing.</p>
-</dd>
-<dt class="field-even">rtype</dt>
-<dd class="field-even"><p>dict</p>
+<dt class="sig sig-object py" id="colourmap.colourmap.is_hex_color">
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">is_hex_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.is_hex_color" title="Link to this definition"></a></dt>
+<dd><p>Check whether the input is a valid hex color code.</p>
+<dl class="simple">
+<dt>verbose<span class="classifier">int, (default: ‘info’)</span></dt><dd><p>Print progress to screen. The default is ‘info’
+60: None, 40: error, 30: warning, 20: info, 10: debug</p>
 </dd>
 </dl>
-</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="colourmap.colourmap.linear_gradient">
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">linear_gradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_hex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finish_hex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#FFFFFF'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.linear_gradient" title="Link to this definition"></a></dt>
+<dd><p>Return a gradient list of (n) colors between two hex colors.</p>
+<p>start_hex and finish_hex should be the full six-digit color string, inlcuding the number sign (“#FFFFFF”)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_hex</strong> (<em>str</em>) – Hex starting color.</p></li>
+<li><p><strong>finish_hex</strong> (<em>str</em><em>, </em><em>optional</em>) – Hex end color. The default is “#FFFFFF”.</p></li>
+<li><p><strong>n</strong> (<em>int</em><em>, </em><em>(</em><em>default: 10</em><em>)</em>) – Spacing between start-stop colors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>lineair spacing.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">colourmap</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute linear gradient for 10 points between black and white</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">colors</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">linear_gradient</span><span class="p">(</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span> <span class="n">finish_hex</span><span class="o">=</span><span class="s2">&quot;#FFFFFF&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="colourmap.colourmap.rgb2hex">
-<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">rgb2hex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">colors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.rgb2hex" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">rgb2hex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">colors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.rgb2hex" title="Link to this definition"></a></dt>
 <dd><p>Convert RGB color-range to hex.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>colors</strong> (<em>list</em>) – list of floats that range between [0-1, 0-1, 0-1].</p></li>
 <li><p><strong>keep_alpha</strong> (<em>bool</em><em>, </em><em>optional</em>) – Keep the alpha value, which is the first number in RGB range. The default is False.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list of hex colors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="colourmap.colourmap.set_logger">
+<span class="sig-prename descclassname"><span class="pre">colourmap.colourmap.</span></span><span class="sig-name descname"><span class="pre">set_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose:</span> <span class="pre">[&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'int'&gt;]</span> <span class="pre">=</span> <span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#colourmap.colourmap.set_logger" title="Link to this definition"></a></dt>
+<dd><p>Set the logger for verbosity messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>verbose</strong> (<em>[</em><em>str</em><em>, </em><em>int</em><em>]</em><em>, </em><em>default is 'info'</em><em> or </em><em>20</em>) – Set the verbose messages using string or integer values.
+* [0, 60, None, ‘silent’, ‘off’, ‘no’]: No message.
+* [10, ‘debug’]: Messages from debug level and higher.
+* [20, ‘info’]: Messages from info level and higher.
+* [30, ‘warning’]: Messages from warning level and higher.
+* [50, ‘critical’, ‘error’]: Messages from critical level and higher.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>None.</em></p></li>
+<li><p><em>&gt; # Set the logger to warning</em></p></li>
+<li><p><em>&gt; set_logger(verbose=’warning’)</em></p></li>
+<li><p><em>&gt; # Test with different messages</em></p></li>
+<li><p><em>&gt; logger.debug(“Hello debug”)</em></p></li>
+<li><p><em>&gt; logger.info(“Hello info”)</em></p></li>
+<li><p><em>&gt; logger.warning(“Hello warning”)</em></p></li>
+<li><p><em>&gt; logger.critical(“Hello critical”)</em></p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
