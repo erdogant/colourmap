@@ -12,14 +12,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import logging
 
-# Ensuring a minimum width of 12
-NAME_WIDTH = max(len(__name__), 12)
-logger = logging.getLogger('')
-[logger.removeHandler(handler) for handler in logger.handlers[:]]
-logging.basicConfig(
-    format=f"%(asctime)s [%(name)-{NAME_WIDTH}s]> %(levelname)-8s> %(message)s",
-    datefmt="%d-%m-%y %H:%M:%S",
-    level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
