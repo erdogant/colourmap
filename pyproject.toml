@@ -26,6 +26,12 @@ dependencies = [
     'scipy',
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+]
+
 [project.urls]
 Homepage = "https://erdogant.github.io/colourmap"
 Download = "https://github.com/erdogant/colourmap/archive/{version}.tar.gz"
@@ -33,6 +39,9 @@ Download = "https://github.com/erdogant/colourmap/archive/{version}.tar.gz"
 [tool.setuptools]
 packages = ["colourmap"]
 include-package-data = true
+
+# [tool.setuptools.package-data]
+# colourmap = ["skills/**/*"]
 
 [tool.setuptools.dynamic]
 version = { attr = "colourmap.__version__" }
