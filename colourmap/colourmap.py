@@ -212,9 +212,9 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
     """Generate colors from input list.
 
     This function creates unique colors based on the input list y and the cmap.
-    When the gradient hex color is defined, such as '#000000', a gradient coloring space is created between two colors.
-        The start color of the particular y, using the cmap and
-        The end color is the defined gradient, such as '#000000'.
+    When the gradient hex color is defined, such as '#000000', a gradient
+    coloring space is created between two colors: the start color of the
+    particular `y` (using `cmap`) and the end color defined by `gradient`.
 
     Parameters
     ----------
