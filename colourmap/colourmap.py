@@ -272,34 +272,19 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
     """
     # Set the logger
     set_logger(verbose=verbose)
-    # Convert labels to hashable values (supports nested lists/arrays),
-    # so they can safely be used as dict keys.
-    def _to_hashable(value):
-        if isinstance(value, np.ndarray):
-            if value.ndim == 0:
-                return _to_hashable(value.item())
-            return tuple(_to_hashable(v) for v in value.tolist())
-        if isinstance(value, list):
-            return tuple(_to_hashable(v) for v in value)
-        if isinstance(value, tuple):
-            return tuple(_to_hashable(v) for v in value)
-        return value
+    # make unique
+    y = np.array(y)
+    # Ensure labels are hashable when rows/items are ndarrays (e.g. one-hot labels).
+    if y.ndim > 1:
+        y_list = [tuple(row.tolist()) for row in y]
+        y = np.empty(len(y_list), dtype=object)
+        y[:] = y_list
+    elif y.ndim == 1 and any(isinstance(v, np.ndarray) for v in y):
+        y_list = [tuple(v.tolist()) if isinstance(v, np.ndarray) else v for v in y]
+        y = np.empty(len(y_list), dtype=object)
+        y[:] = y_list
 
-    y_arr = np.asarray(y)
-    if y_arr.ndim == 0:
-        y_list = [_to_hashable(y_arr.item())]
-    else:
-        y_list = [_to_hashable(v) for v in y_arr]
-
-    # Force a 1D object array of hashable labels (avoid implicit 2D shaping).
-    y = np.empty(len(y_list), dtype=object)
-    y[:] = y_list
-
-    # Make unique labels (preserve old np.unique behavior when possible).
-    try:
-        uiy = np.unique(y)
-    except TypeError:
-        uiy = np.array(list(dict.fromkeys(y.tolist())), dtype=object)
+    uiy = np.unique(y)
 
     # Get colors
     colors_unique = generate(len(uiy), cmap=cmap, method=method, scheme=scheme, verbose=verbose)
