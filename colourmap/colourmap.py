@@ -272,9 +272,34 @@ def fromlist(y, X=None, cmap='Set1', gradient=None, method='matplotlib', scheme=
     """
     # Set the logger
     set_logger(verbose=verbose)
-    # make unique
-    y = np.array(y)
-    uiy = np.unique(y)
+    # Convert labels to hashable values (supports nested lists/arrays),
+    # so they can safely be used as dict keys.
+    def _to_hashable(value):
+        if isinstance(value, np.ndarray):
+            if value.ndim == 0:
+                return _to_hashable(value.item())
+            return tuple(_to_hashable(v) for v in value.tolist())
+        if isinstance(value, list):
+            return tuple(_to_hashable(v) for v in value)
+        if isinstance(value, tuple):
+            return tuple(_to_hashable(v) for v in value)
+        return value
+
+    y_arr = np.asarray(y)
+    if y_arr.ndim == 0:
+        y_list = [_to_hashable(y_arr.item())]
+    else:
+        y_list = [_to_hashable(v) for v in y_arr]
+
+    # Force a 1D object array of hashable labels (avoid implicit 2D shaping).
+    y = np.empty(len(y_list), dtype=object)
+    y[:] = y_list
+
+    # Make unique labels (preserve old np.unique behavior when possible).
+    try:
+        uiy = np.unique(y)
+    except TypeError:
+        uiy = np.array(list(dict.fromkeys(y.tolist())), dtype=object)
 
     # Get colors
     colors_unique = generate(len(uiy), cmap=cmap, method=method, scheme=scheme, verbose=verbose)

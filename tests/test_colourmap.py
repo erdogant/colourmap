@@ -28,7 +28,13 @@ def test_colourmap():
     out = colourmap.fromlist(y)
     assert out[0].shape==(len(y),4)
     assert len(out[1].values())==len(np.unique(y))
-    
+
+    # Check 7: ndarray/list labels should not crash (regression)
+    y = np.array([[1, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]])
+    out = colourmap.fromlist(y)
+    assert out[0].shape == (len(y), 4)
+    assert len(out[1].values()) == 3
+
 
 def test_empty_colors():
     for colors in ([], np.array([]), np.empty((0, 3)), np.empty((0, 4))):
