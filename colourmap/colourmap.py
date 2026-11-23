@@ -406,6 +406,17 @@ def _color_dict(gradient):
     return {'hex': hex_colors, 'rgb': rgb_colors}
 
 
+# Check whether c contains RGB values
+def is_rgb(color, verbose='info'):
+    is_rgb_bool = (
+        isinstance(color, (list, tuple, np.ndarray))
+        and np.asarray(color).ndim == 1
+        and len(color) == 3
+        and all(isinstance(v, (int, float, np.integer, np.floating)) for v in color)
+    )
+    return is_rgb_bool
+
+
 def is_hex_color(color, verbose='info'):
     """Check whether the input is a valid hex color code.
 
