@@ -75,6 +75,8 @@ extensions = [
 napoleon_google_docstring = False
 napoleon_numpy_docstring = True
 
+autosectionlabel_prefix_document = True
+
 # autodoc_mock_imports = ['cv2','keras']
 
 
