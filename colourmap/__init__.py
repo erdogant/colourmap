@@ -8,6 +8,8 @@ from colourmap.colourmap import (
     hex2rgb,
     hex2rgba,
     is_hex_color,
+    is_hex,
+    is_rgb,
     gradient_on_density_color,
     check_logger,
 )

@@ -418,6 +418,11 @@ def is_rgb(color, verbose='info'):
 
 
 def is_hex_color(color, verbose='info'):
+    logger.warning('This function is deprecated and will be removed in a future version. Please use `is_hex` instead.')
+    return is_hex(color, verbose=verbose)
+
+
+def is_hex(color, verbose='info'):
     """Check whether the input is a valid hex color code.
 
     verbose : int, (default: 'info')
