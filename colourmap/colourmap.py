@@ -54,6 +54,7 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'
     Returns
     -------
     color_list : numpy array with colors that range between [0-1, 0-1, 0-1].
+        When N is zero, RGB output has shape (0, 3), or (0, 4) with alpha.
 
     """
     # Set the logger
@@ -80,6 +81,8 @@ def generate(N, cmap='Set1', method='matplotlib', keep_alpha=False, scheme='rgb'
     else:
         colors = color_list
 
+    if scheme != 'hex' and len(colors)==0:
+        return np.empty((0, listlen))
     return np.array(colors)
 
 
@@ -110,6 +113,8 @@ def rgb2hex(colors, keep_alpha=False):
     """
     if isinstance(colors, list):
         colors = np.array(colors)
+    if len(colors.shape)==1 and colors.size==0:
+        return np.array([], dtype=str)
     if len(colors.shape)==1:
         colors = np.array([colors])
 

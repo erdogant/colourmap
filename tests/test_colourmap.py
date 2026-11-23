@@ -2,11 +2,11 @@ import colourmap
 import numpy as np
 
 def test_colourmap():
-    N=np.random.randint(10)
-    # Check size 1
-    assert colourmap.generate(N).shape==(N,3)
-    # Check size 2
-    assert colourmap.generate(N, keep_alpha=True).shape==(N,4)
+    for N in range(10):
+        # Check size 1
+        assert colourmap.generate(N).shape==(N,3)
+        # Check size 2
+        assert colourmap.generate(N, keep_alpha=True).shape==(N,4)
     # Check 3 conversion
     colors=colourmap.generate(5, cmap='Set1')
     assert np.all(colourmap.rgb2hex(colors)==['#e41a1c', '#4daf4a', '#ff7f00', '#a65628', '#999999'])
@@ -30,4 +30,11 @@ def test_colourmap():
     assert len(out[1].values())==len(np.unique(y))
     
 
+def test_empty_colors():
+    for colors in ([], np.array([]), np.empty((0, 3)), np.empty((0, 4))):
+        for keep_alpha in (False, True):
+            assert colourmap.rgb2hex(colors, keep_alpha=keep_alpha).shape==(0,)
+
+    for keep_alpha in (False, True):
+        assert colourmap.generate(0, scheme='hex', keep_alpha=keep_alpha).shape==(0,)
 
